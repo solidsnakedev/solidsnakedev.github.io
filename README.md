@@ -1,7 +1,4 @@
----
-layout: post
-title: Blogging Like a Hacker
----
+
 # solidsnakedev.github.io
 1.  List item one.
 
