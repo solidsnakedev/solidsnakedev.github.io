@@ -75,13 +75,24 @@ Technological University of Chile, Santiago Chile 2010
 |                             |                          |
 | --------------------------- | ------------------------ |
 | Object oriented programming | Python / JavaScript / C# |
+| --------------------------- | ------------------------ |
+| Functional programming | Haskell |
+| --------------------------- | ------------------------ |
+| Machine Learning | TensorFlow |
+| --------------------------- | ------------------------ |
+| Front-End Web programming | HTML | CSS | Bootstrap |
+| --------------------------- | ------------------------ |
+| SQL | Oracle / SQL Server / SQLite |
+| --------------------------- | ------------------------ |
+| Version Control | Git / GitHub / GitLab |
 
-* Functional programming (Haskell)
-* REST APIs (Python Flask)
-* Machine Learning (TensorFlow)
-* Web programming (HTML | CSS | Bootstrap)
-* SQL (Oracle | SQL Server | SQLite)
-* Version Control (Git | GitHub | GitLab)
+
+*  ()
+* REST APIs ()
+*  ()
+*  ()
+*  ()
+*  (Git | GitHub | GitLab)
 * SCADA (IFIX 6.0 | Vijeo Schneider)
 * Networking (Ethernet/IP | ControlNet | EtherCAT | AS-Interface)
 * VMs (VMware | VirtualBox)
