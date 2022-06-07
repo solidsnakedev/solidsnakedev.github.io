@@ -21,6 +21,15 @@ Baggage Handling System Projects
 1. Designed, developed, and implemented software/automation solutions for industrial applications as required.
 2. Commissioned software per functional design specification.
 
+### Glidepath Group
+Baggage Handling System Projects
+### Software Engineer (Chile-USA-Canada) 2015- 2018
+1. Created and executed unit testing using standard unit test frameworks ensuring software meets requirements.
+2. Led the design or contribute to the design of quality PLC Code and SCADA systems.
+3. Maintained quality standards, policies, procedures & methodologies in all areas of software development.
+4. Followed formal software development process.
+
+
 1.  List item one.
 
     List item one continued with a second paragraph followed by an
