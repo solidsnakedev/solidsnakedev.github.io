@@ -41,6 +41,7 @@ KUKA Roboter GmbH & SCHUNK GmbH (Germany Partners)
 5. Programed Allen Bradley and Siemens PLCs.
 
 ## Education
+* * *
 ### BACHELOR OF AUTOMATION AND ROBOTIC ENGINEERING
 Andres Bello University - Chile, Santiago 2014
 ### AUTOMATION AND CONTROL TECHNICIAN
@@ -49,7 +50,7 @@ Technological University of Chile, Santiago Chile 2010
 Industrial High School Don Orione-Chile, Santiago 2007
 
 ## Additional Training
-
+* * *
 ### CARDANO ARCHITECTURE AND DESIGN DEVELOPER
 Emurgo Academy 2021-Present
 ### PLUTUS-PIONER PROGRAM
