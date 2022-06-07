@@ -66,7 +66,11 @@ Technological University of Chile, Santiago Chile 2010
 
 ## Expertise in informatic
 * * *
-* Object oriented programming (Python | JavaScript | C#)
+|                             |                          |
+|:----------------------------|:-------------------------|
+|Object oriented programming  |(Python | JavaScript | C#)|
+
+
 * Functional programming (Haskell)
 * REST APIs (Python Flask)
 * Machine Learning (TensorFlow)
