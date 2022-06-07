@@ -85,3 +85,11 @@ Technological University of Chile, Santiago Chile 2010
 * PLC Programming (Structure Text | Ladder)
 * PLC Applications (RSLogix5000 | Studio 5000 | Omron CX-Programmer)
 * VFDs (Allen Bradley | ABB | Nord Drive | SEW)
+
+
+| head1        | head two          | three |
+|:-------------|:------------------|:------|
+| ok           | good swedish fish | nice  |
+| out of stock | good and plenty   | nice  |
+| ok           | good `oreos`      | hmm   |
+| ok           | good `zoute` drop | yumm  |
