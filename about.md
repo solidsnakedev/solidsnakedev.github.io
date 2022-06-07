@@ -72,7 +72,7 @@ Technological University of Chile, Santiago Chile 2010
 | --- | --- |
 | baz | bim |
 
-| Object oriented programming | Python / JavaScript / C# |
+|                             |                          |
 | --------------------------- | ------------------------ |
 | Object oriented programming | Python / JavaScript / C# |
 
