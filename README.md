@@ -21,6 +21,13 @@ enabling the introduction of new capabilities & functionality.
 3. Providing technical input in determining design solutions for robust & reliable baggage
 handling/logistic products/solutions.
 
+### Glidepath Group
+Baggage Handling System Projects
+#### Lead Software Engineer (Canada) 2019-2020
+1. Designed, developed, and implemented software/automation solutions for industrial
+applications as required.
+2. Commissioned software per functional design specification.
+
 1.  List item one.
 
     List item one continued with a second paragraph followed by an
