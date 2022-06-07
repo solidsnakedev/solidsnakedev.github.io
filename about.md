@@ -72,19 +72,14 @@ Technological University of Chile, Santiago Chile 2010
 | --- | --- |
 | baz | bim |
 
-|                             |                          |
-| --------------------------- | ------------------------ |
-| Object oriented programming | Python / JavaScript / C# |
-| --------------------------- | ------------------------ |
-| Functional programming | Haskell |
-| --------------------------- | ------------------------ |
-| Machine Learning | TensorFlow |
-| --------------------------- | ------------------------ |
-| Front-End Web programming | HTML | CSS | Bootstrap |
-| --------------------------- | ------------------------ |
-| SQL | Oracle / SQL Server / SQLite |
-| --------------------------- | ------------------------ |
-| Version Control | Git / GitHub / GitLab |
+|                             |                              |
+| --------------------------- | ---------------------------- |
+| Object oriented programming | Python / JavaScript / C#     |
+| Functional programming      | Haskell                      |
+| Machine Learning            | TensorFlow                   |
+| Front-End Web programming   | HTML / CSS / Bootstrap       |
+| SQL                         | Oracle / SQL Server / SQLite |
+| Version Control             | Git / GitHub / GitLab        |
 
 
 *  ()
