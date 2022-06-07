@@ -66,18 +66,18 @@ Technological University of Chile, Santiago Chile 2010
 
 ## Expertise in informatic
 
-|                             |                              |
-| --------------------------- | ---------------------------- |
-| Object oriented programming | Python / JavaScript / C#     |
-| Functional programming      | Haskell                      |
-| Machine Learning            | TensorFlow                   |
-| Front-End Web programming   | HTML / CSS / Bootstrap       |
-| SQL                         | Oracle / SQL Server / SQLite |
+|                             |                                                    |
+| --------------------------- | -------------------------------------------------- |
+| Object oriented programming | Python / JavaScript / C/C++                        |
+| Functional programming      | Haskell                                            |
+| Machine Learning            | TensorFlow                                         |
+| Front-End Web programming   | HTML / CSS / Bootstrap                             |
+| SQL                         | Oracle / SQL Server / SQLite                       |
 | Version Control             | Git / GitHub / GitLab                              |
 | Networking                  | Ethernet/IP / ControlNet / EtherCAT / AS-Interface |
-| VMs/Container               | VMware / VirtualBox / Docker |
-| OS                          | Linux / Windows / Cloud Servers |
-| PLC Programming             | Structure Text / Ladder |
-| PLC Applications            | RSLogix5000 / Studio 5000 / Omron CX-Programmer |
-| VFDs                        | Allen Bradley / ABB / Nord Drive / SEW  |
+| VMs/Container               | VMware / VirtualBox / Docker                       |
+| OS                          | Linux / Windows / Cloud Servers                    |
+| PLC Programming             | Structure Text / Ladder                            |
+| PLC Applications            | RSLogix5000 / Studio 5000 / Omron CX-Programmer    |
+| VFDs                        | Allen Bradley / ABB / Nord Drive / SEW             |
 
