@@ -1,4 +1,4 @@
-[Link to another page](./about.html).
+[Link to another page](./about.md).
 
 # Jonathan Rodriguez
 ## Summary of projects
