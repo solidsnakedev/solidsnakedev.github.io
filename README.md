@@ -8,6 +8,7 @@ requirements, maintaining industrial quality standards, policies, procedures and
 areas of software development.
 
 ## Professional experience
+* * *
 ### Alstef Group
 Baggage Handling System Projects
 #### Lead Software Developer (Canada - France) 2020-Present
