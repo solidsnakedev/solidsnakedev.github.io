@@ -9,11 +9,11 @@ areas of software development.
 
 ## Professional experience
 
-Alstef Group
+### Alstef Group
 
 Baggage Handling System Projects
 
-Lead Software Developer (Canada - France) 2020-Present
+#### Lead Software Developer (Canada - France) 2020-Present
 
 1. Providing high level design expertise to the ongoing development of the Bagware software suite
 enabling the introduction of new capabilities & functionality.
