@@ -23,7 +23,7 @@ Baggage Handling System Projects
 
 ### Glidepath Group
 Baggage Handling System Projects
-### Software Engineer (Chile-USA-Canada) 2015- 2018
+#### Software Engineer (Chile-USA-Canada) 2015- 2018
 1. Created and executed unit testing using standard unit test frameworks ensuring software meets requirements.
 2. Led the design or contribute to the design of quality PLC Code and SCADA systems.
 3. Maintained quality standards, policies, procedures & methodologies in all areas of software development.
