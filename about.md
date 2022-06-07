@@ -65,12 +65,6 @@ Universidad Nacional Andrés Bello, Santiago Chile 2012
 Technological University of Chile, Santiago Chile 2010
 
 ## Expertise in informatic
-* * *
-
-
-| foo | bar |
-| --- | --- |
-| baz | bim |
 
 |                             |                              |
 | --------------------------- | ---------------------------- |
@@ -79,28 +73,11 @@ Technological University of Chile, Santiago Chile 2010
 | Machine Learning            | TensorFlow                   |
 | Front-End Web programming   | HTML / CSS / Bootstrap       |
 | SQL                         | Oracle / SQL Server / SQLite |
-| Version Control             | Git / GitHub / GitLab        |
+| Version Control             | Git / GitHub / GitLab                              |
+| Networking                  | Ethernet/IP / ControlNet / EtherCAT / AS-Interface |
+| VMs/Container               | VMware / VirtualBox / Docker |
+| OS                          | Linux / Windows / Cloud Servers |
+| PLC Programming             | Structure Text / Ladder |
+| PLC Applications            | RSLogix5000 / Studio 5000 / Omron CX-Programmer |
+| VFDs                        | Allen Bradley / ABB / Nord Drive / SEW  |
 
-
-*  ()
-* REST APIs ()
-*  ()
-*  ()
-*  ()
-*  (Git | GitHub | GitLab)
-* SCADA (IFIX 6.0 | Vijeo Schneider)
-* Networking (Ethernet/IP | ControlNet | EtherCAT | AS-Interface)
-* VMs (VMware | VirtualBox)
-* Docker Container
-* OS (Linux | Windows | Cloud Servers)
-* PLC Programming (Structure Text | Ladder)
-* PLC Applications (RSLogix5000 | Studio 5000 | Omron CX-Programmer)
-* VFDs (Allen Bradley | ABB | Nord Drive | SEW)
-
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| Functional programming           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
