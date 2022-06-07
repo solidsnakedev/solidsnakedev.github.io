@@ -38,8 +38,6 @@ KUKA Roboter GmbH & SCHUNK GmbH (Germany Partners)
 4. Performed preventive and corrective maintenance to KUKA Robots, arms, servomotors and grippers.
 5. Programed Allen Bradley and Siemens PLCs.
 
-
-
 1.  List item one.
 
     List item one continued with a second paragraph followed by an
