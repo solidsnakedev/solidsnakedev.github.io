@@ -29,6 +29,16 @@ Baggage Handling System Projects
 3. Maintained quality standards, policies, procedures & methodologies in all areas of software development.
 4. Followed formal software development process.
 
+### Rotar Engineering Spa. (Chile)
+KUKA Roboter GmbH & SCHUNK GmbH (Germany Partners)
+#### Project engineer 2014
+1. Attended meetings with clients to understand their needs and requirements.
+2. Provided support for servomotors, sensors, communication faults, robotic arms replacement.
+3. Integrated KUKA robots with PLCs.
+4. Performed preventive and corrective maintenance to KUKA Robots, arms, servomotors and grippers.
+5. Programed Allen Bradley and Siemens PLCs.
+
+
 
 1.  List item one.
 
