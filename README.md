@@ -10,23 +10,20 @@ areas of software development.
 ## Professional experience
 
 ### Alstef Group
-
 Baggage Handling System Projects
-
 #### Lead Software Developer (Canada - France) 2020-Present
-
-1. Providing high level design expertise to the ongoing development of the Bagware software suite
-enabling the introduction of new capabilities & functionality.
+1. Providing high level design expertise to the ongoing development of the Bagware software suite enabling the introduction of new capabilities & functionality.
 2. Providing technical input in defining & establishing technical design constraints & objectives.
-3. Providing technical input in determining design solutions for robust & reliable baggage
-handling/logistic products/solutions.
+3. Providing technical input in determining design solutions for robust & reliable baggage handling/logistic products/solutions.
 
 ### Glidepath Group
 Baggage Handling System Projects
 #### Lead Software Engineer (Canada) 2019-2020
-1. Designed, developed, and implemented software/automation solutions for industrial
-applications as required.
+1. Designed, developed, and implemented software/automation solutions for industrial applications as required.
 2. Commissioned software per functional design specification.
+
+
+
 
 1.  List item one.
 
