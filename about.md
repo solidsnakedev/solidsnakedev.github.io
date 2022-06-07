@@ -63,3 +63,21 @@ Consensys Academy 2020
 Universidad Nacional Andrés Bello, Santiago Chile 2012
 ### INSTRUMENTATION AND CONTROL COURSE
 Technological University of Chile, Santiago Chile 2010
+
+## Expertise in informatic
+* Object oriented programming (Python | JavaScript | C#)
+* Functional programming (Haskell)
+* REST APIs (Python Flask)
+* Machine Learning (TensorFlow)
+* Web programming (HTML | CSS | Bootstrap)
+* SQL (Oracle | SQL Server | SQLite)
+* Version Control (Git | GitHub | GitLab)
+* SCADA (IFIX 6.0 | Vijeo Schneider)
+* Networking (Ethernet/IP | ControlNet | EtherCAT | AS-Interface)
+* VMs (VMware | VirtualBox)
+* Docker Container
+* OS (Linux | Windows | Cloud Servers)
+* PLC Programming (Structure Text | Ladder)
+* PLC Applications (RSLogix5000 | Studio 5000 | Omron CX-Programmer)
+* VFDs (Allen Bradley | ABB | Nord Drive | SEW)
+
