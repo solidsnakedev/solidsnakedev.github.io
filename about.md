@@ -67,9 +67,14 @@ Technological University of Chile, Santiago Chile 2010
 ## Expertise in informatic
 * * *
 
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-|Object oriented programming  | Python / JavaScript / C#|
+
+| foo | bar |
+| --- | --- |
+| baz | bim |
+
+| Object oriented programming | Python / JavaScript / C# |
+| --------------------------- | ------------------------ |
+| Object oriented programming | Python / JavaScript / C# |
 
 * Functional programming (Haskell)
 * REST APIs (Python Flask)
