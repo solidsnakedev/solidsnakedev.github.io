@@ -8,7 +8,6 @@ requirements, maintaining industrial quality standards, policies, procedures and
 areas of software development.
 
 ## Professional experience
-
 ### Alstef Group
 Baggage Handling System Projects
 #### Lead Software Developer (Canada - France) 2020-Present
@@ -21,9 +20,6 @@ Baggage Handling System Projects
 #### Lead Software Engineer (Canada) 2019-2020
 1. Designed, developed, and implemented software/automation solutions for industrial applications as required.
 2. Commissioned software per functional design specification.
-
-
-
 
 1.  List item one.
 
