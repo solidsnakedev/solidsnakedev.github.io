@@ -1,7 +1,13 @@
+# Jonathan Rodriguez
+## Summary of projects
+Responsible for designing and developing the conveyor control system and software applications for
+baggage handling systems utilizing internal proprietary tools and programs, designing and executing
+unique internal software testing procedures, preparing functional description and specifications, creating
+and executing unit testing using company standard test frameworks to ensure software meets Airports
+requirements, maintaining industrial quality standards, policies, procedures and methodologies in all
+areas of software development.
 
-# solidsnakedev.github.io
-→
-⚙️
+
 
 1.  List item one.
 
