@@ -1,3 +1,5 @@
+[Link to another page](./another-page.md).
+
 # Jonathan Rodriguez
 ## Summary of projects
 * * *
