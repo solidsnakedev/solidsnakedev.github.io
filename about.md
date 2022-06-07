@@ -65,6 +65,7 @@ Universidad Nacional Andrés Bello, Santiago Chile 2012
 Technological University of Chile, Santiago Chile 2010
 
 ## Expertise in informatic
+* * *
 * Object oriented programming (Python | JavaScript | C#)
 * Functional programming (Haskell)
 * REST APIs (Python Flask)
@@ -80,4 +81,3 @@ Technological University of Chile, Santiago Chile 2010
 * PLC Programming (Structure Text | Ladder)
 * PLC Applications (RSLogix5000 | Studio 5000 | Omron CX-Programmer)
 * VFDs (Allen Bradley | ABB | Nord Drive | SEW)
-
