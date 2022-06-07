@@ -66,10 +66,10 @@ Technological University of Chile, Santiago Chile 2010
 
 ## Expertise in informatic
 * * *
-|                             |                          |
-|:----------------------------|:-------------------------|
-|Object oriented programming  |(Python | JavaScript | C#)|
 
+| head1        | head two          | three |
+|:-------------|:------------------|:------|
+|Object oriented programming  | Python / JavaScript / C#|
 
 * Functional programming (Haskell)
 * REST APIs (Python Flask)
@@ -89,7 +89,7 @@ Technological University of Chile, Santiago Chile 2010
 
 | head1        | head two          | three |
 |:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
+| Functional programming           | good swedish fish | nice  |
 | out of stock | good and plenty   | nice  |
 | ok           | good `oreos`      | hmm   |
 | ok           | good `zoute` drop | yumm  |
