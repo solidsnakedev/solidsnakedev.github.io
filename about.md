@@ -1,5 +1,5 @@
 # Jonathan Rodriguez
-## Summary of projects
+## Summary
 * * *
 Responsible for designing and developing the conveyor control system and software applications for
 baggage handling systems utilizing internal proprietary tools and programs, designing and executing
@@ -42,27 +42,21 @@ KUKA Roboter GmbH & SCHUNK GmbH (Germany Partners)
 
 ## Education
 * * *
-### BACHELOR OF AUTOMATION AND ROBOTIC ENGINEERING
+### Bachelor of automation and robotic engineering
 Andres Bello University - Chile, Santiago 2014
-### AUTOMATION AND CONTROL TECHNICIAN
+### Automation and control technician
 Technological University of Chile, Santiago Chile 2010
-### INDUSTRIAL ELECTRICAL TECHNICIAN
-Industrial High School Don Orione-Chile, Santiago 2007
 
 ## Additional Training
 * * *
-### CARDANO ARCHITECTURE AND DESIGN DEVELOPER
+### Cardano architecture and design developer
 Emurgo Academy 2021-Present
-### PLUTUS-PIONER PROGRAM
+### Plutus pioner program
 IOHK Cardano 2022-Present
-### PYTHON: WEB APPS FLASK-SQLAlCHEMY
+### Python: Web apps flask-sqlalchemy
 Talk python training 2021
-### BLOCKCHAIN: FOUNDATIONS AND USE CASES
+### Blockchain: Foundations and use cases
 Consensys Academy 2020
-### ADVANCED PROGRAMMABLE LOGIC CONTROLLER COURSE
-Universidad Nacional Andrés Bello, Santiago Chile 2012
-### INSTRUMENTATION AND CONTROL COURSE
-Technological University of Chile, Santiago Chile 2010
 
 ## Expertise in informatic
 
