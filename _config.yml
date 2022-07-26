@@ -5,7 +5,7 @@ description: >-
   just a minimalist, personal blog
 lang: en-US
 timezone:  Europe/Rome
-repo: https://github.com/DavideBrie/Gesko # site repo [optional]
+repo: https://github.com/solidsnakedev/solidsnakedev.github.io # site repo [optional]
 data-theme: dark # default theme "dark" | "light"
 discus-identifier: powex # replace with your disqus shortname
 
