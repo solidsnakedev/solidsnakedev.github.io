@@ -1,22 +1,22 @@
-site: Gesko
-title: Gesko
-greetings: Hi 👋
+site: Jonathan 
+title: Jonathan Blog
+greetings: Hi, I'm Jonathan 👋
 description: >-
-  just a minimalist, personal blog
+  This is my personal blog
 lang: en-US
 timezone:  Europe/Rome
 repo: https://github.com/solidsnakedev/solidsnakedev.github.io # site repo [optional]
 data-theme: dark # default theme "dark" | "light"
-discus-identifier: powex # replace with your disqus shortname
+#discus-identifier: powex # replace with your disqus shortname
 
 author:
-  name: gesko
-  bio: just a minimalist, personal blog
+  name: Jonathan
+  bio: personal blog
   userpicture: 
-  username: # general username
-  github: # github username
+  username: solidsnakedev # general username
+  github: solidsnakedev # github username
   twitter: # twitter username
-  email: your-email@email.com # email adress
+  email: jona.ca@outlook.com # email adress
 
 # Font Settings
 googlewebfonts: family=Play:wght@400;700&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,900
@@ -30,12 +30,10 @@ permalink: pretty
 #url: "http://localhost:4000" # 
 #baseurl: "" # 
 
-
 markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-
 
 exclude:
   - .jekyll-cache
@@ -58,6 +56,8 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-relative-links
+  - jekyll-gist
+  - jemoji
 
 collections:
   pages:
