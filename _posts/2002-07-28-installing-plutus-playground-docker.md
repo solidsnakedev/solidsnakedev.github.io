@@ -6,4 +6,4 @@ summary: This guide will show you how to compile and install plutus playground u
 tags: plutus plutus-playground coding docker dev
 ---
 
-{% remote_markdown https://raw.githubusercontent.com/solidsnakedev/plutus-playground-docker/master/README.md %}
+{% remote_include https://raw.githubusercontent.com/solidsnakedev/plutus-playground-docker/master/README.md %}
