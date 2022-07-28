@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Jonathan Blog</title>
- <link href="http://localhost:4000/atom.xml" rel="self"/>
- <link href="http://localhost:4000/"/>
- <updated>2022-07-28T17:41:39+00:00</updated>
- <id>http://localhost:4000</id>
+ <link href="https://solidsnakedev.github.io/atom.xml" rel="self"/>
+ <link href="https://solidsnakedev.github.io/"/>
+ <updated>2022-07-28T18:05:51+00:00</updated>
+ <id>https://solidsnakedev.github.io</id>
  <author>
    <name>Jonathan</name>
    <email>jona.ca@outlook.com</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Installing plutus playground using Docker container</title>
-   <link href="http://localhost:4000/2002/07/28/installing-plutus-playground-docker"/>
+   <link href="https://solidsnakedev.github.io/2002/07/28/installing-plutus-playground-docker"/>
    <updated>2002-07-28T00:00:00+00:00</updated>
-   <id>http://localhost:4000/2002/07/28/installing-plutus-playground-docker</id>
+   <id>https://solidsnakedev.github.io/2002/07/28/installing-plutus-playground-docker</id>
    <content type="html">&lt;h1 id=&quot;installing-plutus-playground-using-docker-container&quot;&gt;Installing plutus playground using Docker container&lt;/h1&gt;
 &lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This guide will show you how to compile and install plutus playground using Docker.&lt;/p&gt;
