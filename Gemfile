@@ -12,5 +12,5 @@ gem 'wdm', '>= 0.1.0'
 gem 'webrick'
 gem 'jekyll-gist'
 gem "jemoji", "~> 0.12.0"
-gem 'jekyll-remote-include'
+gem 'jekyll-remote-include', :github => 'netrics/jekyll-remote-include'
 gem 'faraday-retry'
