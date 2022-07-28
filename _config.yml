@@ -35,14 +35,14 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-exclude:
-  - .obsidian
-  - Gemfile.lock
-  - LICENSE.md
-  - README.md
-  - CONTRIBUTING.md
-  - Gemfile
-  - .jekyll-cache
+#exclude:
+#  - .obsidian
+#  - Gemfile.lock
+#  - LICENSE.md
+#  - README.md
+#  - CONTRIBUTING.md
+#  - Gemfile
+#  - .jekyll-cache
   
 compress_html:
   clippings: all
