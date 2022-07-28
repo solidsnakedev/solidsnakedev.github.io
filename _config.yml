@@ -41,8 +41,8 @@ exclude:
   - LICENSE.md
   - README.md
   - CONTRIBUTING.md
-  #- Gemfile
-  #- .jekyll-cache
+  - Gemfile
+  - .jekyll-cache
   
 compress_html:
   clippings: all
