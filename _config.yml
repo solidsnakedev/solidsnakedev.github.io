@@ -58,6 +58,7 @@ plugins:
   - jekyll-relative-links
   - jekyll-gist
   - jemoji
+  - jekyll-remote-include
 
 collections:
   pages:
