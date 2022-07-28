@@ -37,11 +37,11 @@ kramdown:
 
 exclude:
   - .obsidian
-  - Gemfile
   - Gemfile.lock
   - LICENSE.md
   - README.md
   - CONTRIBUTING.md
+  #- Gemfile
   #- .jekyll-cache
   
 compress_html:
@@ -59,7 +59,6 @@ plugins:
   - jekyll-gist
   - jemoji
   - jekyll-remote-include
-  - jekyll-include-cache
 
 collections:
   pages:
