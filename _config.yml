@@ -59,6 +59,7 @@ plugins:
   - jekyll-gist
   - jemoji
   - jekyll-remote-include
+  - jekyll-include-cache
 
 collections:
   pages:
