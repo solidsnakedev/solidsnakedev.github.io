@@ -1,0 +1,7 @@
+{
+  "name": "ELEMENTAL Stake Pool",
+  "description": "ELEMENTAL stands as a proven stake pool, by and for the community. Delegate confidently, knowing your stake is secured in one of the network's finest pools.",
+  "ticker": "ELEMT",
+  "homepage": "https://elemt-frontend.vercel.app/",
+  "extended": "https://gist.githubusercontent.com/solidsnakedev/50de564a29fd2515572b40a183e3d60a/raw/21c866b6756171d791beeddc9905a2ca5ddba3b8/poolMetadata_extended.json"
+}
