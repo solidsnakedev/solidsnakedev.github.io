@@ -1,0 +1,16 @@
+{
+  "verification":"cf00cc5608a440672a",
+  "info": {
+    "url_png_icon_64x64": "https://raw.githubusercontent.com/solidsnakedev/elemt-frontend/main/public/logo-elemental-64-64.png",
+    "url_png_logo": "https://raw.githubusercontent.com/solidsnakedev/elemt-frontend/main/public/logo-elemental.png",
+    "location": "Universe",
+    "social": {
+      "twitter_handle": "elementalpool",
+    },
+    "about": {
+      "me": "ELEMENTAL stands as a proven stake pool, by and for the community. Delegate confidently, knowing your stake is secured in one of the network's finest pools.",
+      "server": "Global Cloud Servers 🌎: Unwavering Reliability. Our infrastructure spans diverse locations, guaranteeing 100% uptime. Constantly monitored by Prometheus and Grafana, ensuring round-the-clock server vigilance.",
+      "company": "https://elemt-frontend.vercel.app/"
+    }
+  }
+}
