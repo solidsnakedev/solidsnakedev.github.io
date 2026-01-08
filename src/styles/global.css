@@ -1,0 +1,713 @@
+@import "tailwindcss";
+
+@layer base {
+  @font-face {
+    font-family: 'VT323';
+    src: url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  }
+  
+  @font-face {
+    font-family: 'Press Start 2P';
+    src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  }
+}
+
+:root {
+  --terminal-amber: #ffc747;
+  --terminal-dark-amber: #ffb000;
+  --terminal-bg: #0a0a0a;
+  --terminal-bg-light: #1a1a1a;
+  --text-glow: 0 0 6px rgba(255, 199, 71, 0.4), 0 0 12px rgba(255, 199, 71, 0.2);
+  --text-glow-strong: 0 0 5px rgba(255, 199, 71, 0.6), 0 0 10px rgba(255, 199, 71, 0.3);
+  --phosphor-bloom: 0 0 1px rgba(255, 199, 71, 0.6), 0 0 4px rgba(255, 199, 71, 0.3);
+  --text-white: #f0f0f0;
+  --focus-ring: 0 0 0 3px rgba(255, 199, 71, 0.5);
+  
+  /* Terminal Spacing Scale - CRT-inspired */
+  --t-space-xs: 0.25rem;   /* 4px */
+  --t-space-sm: 0.5rem;    /* 8px */
+  --t-space-md: 0.75rem;   /* 12px */
+  --t-space-lg: 1rem;      /* 16px */
+  --t-space-xl: 1.5rem;    /* 24px */
+  --t-space-2xl: 2rem;     /* 32px */
+  
+  /* Component-specific spacing - tight inside, big gaps outside */
+  --t-header-px: var(--t-space-md);  /* 12px */
+  --t-header-py: var(--t-space-xs);  /* 4px */
+  --t-body-p: var(--t-space-md);     /* 12px */
+  --t-footer-px: var(--t-space-md);  /* 12px */
+  --t-footer-py: var(--t-space-xs);  /* 4px */
+  --t-row-px: var(--t-space-md);     /* 12px */
+  --t-row-py: var(--t-space-xs);     /* 4px */
+  --t-gap: var(--t-space-sm);        /* 8px */
+  --t-grid-gap: var(--t-space-xl);   /* 24px - CRT grid gap */
+  --t-section-gap: var(--t-space-2xl); /* 32px - gap between sections */
+}
+
+/* Density: Compact - tighter spacing for data-dense views */
+.density-compact {
+  --t-header-px: var(--t-space-sm);  /* 8px */
+  --t-header-py: 0.125rem;           /* 2px */
+  --t-body-p: var(--t-space-sm);     /* 8px */
+  --t-footer-px: var(--t-space-sm);  /* 8px */
+  --t-footer-py: 0.125rem;           /* 2px */
+  --t-row-px: var(--t-space-sm);     /* 8px */
+  --t-row-py: 0.125rem;              /* 2px */
+  --t-gap: var(--t-space-xs);        /* 4px */
+  --t-grid-gap: var(--t-space-md);   /* 12px */
+  --t-section-gap: var(--t-space-lg); /* 16px */
+}
+
+/* Density: Comfortable - more breathing room */
+.density-comfortable {
+  --t-header-px: var(--t-space-lg);  /* 16px */
+  --t-header-py: var(--t-space-sm);  /* 8px */
+  --t-body-p: var(--t-space-lg);     /* 16px */
+  --t-footer-px: var(--t-space-lg);  /* 16px */
+  --t-footer-py: var(--t-space-xs);  /* 4px */
+  --t-row-px: var(--t-space-lg);     /* 16px */
+  --t-row-py: var(--t-space-sm);     /* 8px */
+  --t-gap: var(--t-space-md);        /* 12px */
+  --t-grid-gap: var(--t-space-2xl);  /* 32px */
+  --t-section-gap: var(--t-space-2xl); /* 32px */
+}
+
+/* Utility classes for terminal spacing */
+.terminal-stat-grid {
+  gap: var(--t-grid-gap);
+}
+
+.terminal-section-gap {
+  margin-bottom: var(--t-section-gap);
+}
+
+.terminal-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-section-gap);
+  padding: var(--t-space-lg) var(--t-space-xl);  /* top/bottom + left/right CRT bezel gaps */
+}
+
+@media (min-width: 768px) {
+  .terminal-content {
+    padding: var(--t-space-xl) var(--t-space-2xl);  /* larger spacing on desktop */
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--terminal-bg);
+  color: var(--terminal-amber);
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  line-height: 1.8;
+  overflow-x: hidden;
+  text-shadow: var(--phosphor-bloom);
+  word-wrap: break-word;
+  animation: rare-flicker 4s ease-in-out infinite;
+}
+
+/* Focus states for accessibility */
+*:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--terminal-amber);
+  outline-offset: 2px;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* ============================================
+   CRT / VHS EFFECTS - BROKEN TV PRESET
+   
+   TO ADJUST: Edit the values directly below.
+   Each section has comments with value ranges.
+   ============================================ */
+
+/* Main CRT container with screen curvature and subtle jitter */
+.crt {
+  position: relative;
+  /* Subtle barrel distortion / screen curvature effect */
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 0 80px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(255, 199, 71, 0.05);
+  animation: screen-jitter 0.1s steps(2) infinite;
+  /* To disable jitter: change to "animation: none;" */
+}
+
+/* Phosphor glow utility classes - reusable */
+.phosphor-glow {
+  text-shadow: var(--phosphor-bloom);
+}
+
+.phosphor-glow-strong {
+  text-shadow: var(--text-glow-strong);
+}
+
+/* CRT screen inner glow on content wrapper */
+.crt > * {
+  /* Inherit the phosphor aesthetic */
+}
+
+@keyframes screen-jitter {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }   /* jitter amount */
+  50% { transform: translateX(1px); }
+  75% { transform: translateX(-0.5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Scanlines overlay */
+/* Opacity: 0.03 = subtle, 0.08 = visible, 0.15 = heavy */
+.crt::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px    /* 4px = line thickness for visibility */
+  );
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Vignette (dark edges) */
+/* Intensity: 0.15 = subtle, 0.25 = medium, 0.4 = heavy */
+.crt::after {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.2) 70%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* VHS tracking line */
+/* Speed: 4s = fast, 8s = medium, 12s = slow */
+/* Opacity: 0.4 = subtle, 0.8 = visible, 1 = bright */
+.vhs-line {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 10%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 90%,
+    transparent 100%
+  );
+  z-index: 9997;
+  pointer-events: none;
+  animation: vhs-line-move 4s linear infinite;
+  /* opacity: 0.8; */
+  opacity: 1;
+}
+
+/* Second VHS line (opposite direction) */
+.vhs-line::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: vhs-line-move2 2.5s linear infinite;
+}
+
+/* Glitch bar (occasional) */
+.vhs-line::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 200, 100, 0.25) 20%,
+    rgba(255, 200, 100, 0.4) 50%,
+    rgba(255, 200, 100, 0.25) 80%,
+    transparent
+  );
+  animation: vhs-glitch 6s steps(1) infinite;
+  opacity: 0;
+}
+
+@keyframes vhs-line-move {
+  0% { top: -10px; }
+  100% { top: 105vh; }
+}
+
+@keyframes vhs-line-move2 {
+  0% { top: 105vh; }
+  100% { top: -10px; }
+}
+
+@keyframes vhs-glitch {
+  0%, 85% { opacity: 0; top: 0; }
+  86% { opacity: 1; top: 15vh; }
+  87% { opacity: 0; }
+  88% { opacity: 0.9; top: 35vh; }
+  89% { opacity: 0; }
+  90% { opacity: 1; top: 55vh; }
+  91% { opacity: 0; }
+  92% { opacity: 0.8; top: 75vh; }
+  93%, 100% { opacity: 0; }
+}
+
+/* Static noise overlay */
+/* Opacity: 0.02 = subtle, 0.04 = visible, 0.08 = heavy */
+.crt-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9996;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: noise-move 0.15s steps(6) infinite;
+}
+
+@keyframes noise-move {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, -2%); }
+  50% { transform: translate(2%, 2%); }
+  75% { transform: translate(-2%, 2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Screen flicker */
+/* Speed: 4s = frequent, 10s = occasional, 20s = rare */
+@keyframes rare-flicker {
+  0%, 20% { opacity: 1; }
+  21% { opacity: 0.85; }
+  22% { opacity: 1; }
+  48% { opacity: 0.9; }
+  49% { opacity: 0.7; }
+  50% { opacity: 1; }
+  71% { opacity: 0.88; }
+  72% { opacity: 1; }
+  91% { opacity: 0.8; }
+  93% { opacity: 0.85; }
+  94%, 100% { opacity: 1; }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .crt { animation: none !important; }
+  .crt::before, .crt::after { animation: none !important; }
+  .vhs-line, .vhs-line::before, .vhs-line::after { display: none; }
+  .crt-noise { display: none; }
+  .glitch, .glitch::before, .glitch::after { animation: none !important; }
+  .glitch-subtle { animation: none !important; }
+  body { animation: none !important; }
+}
+
+/* Glitch Effect - Apply to text elements for RGB split + distortion */
+/* Uses !important to bypass reduced-motion for this decorative effect */
+.glitch {
+  position: relative;
+  animation: glitch-skew 0.3s infinite linear alternate-reverse !important;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: transparent;
+}
+
+.glitch::before {
+  /* Magenta channel - shifts left */
+  color: #ff00ff;
+  animation: glitch-left 0.2s infinite linear alternate-reverse !important;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch::after {
+  /* Cyan channel - shifts right */
+  color: #00ffff;
+  animation: glitch-right 0.25s infinite linear alternate-reverse !important;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-left {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 2px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-right {
+  0% { transform: translate(0); }
+  20% { transform: translate(2px, -1px); }
+  40% { transform: translate(-2px, 1px); }
+  60% { transform: translate(1px, -2px); }
+  80% { transform: translate(-1px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skewX(0deg); }
+  25% { transform: skewX(1deg); }
+  50% { transform: skewX(-1deg); }
+  75% { transform: skewX(0.5deg); }
+  100% { transform: skewX(0deg); }
+}
+
+/* Lighter glitch - just occasional flicker, no RGB split */
+.glitch-subtle {
+  animation: glitch-flicker 5s infinite;
+}
+
+@keyframes glitch-flicker {
+  0%, 90% { opacity: 1; transform: translate(0); }
+  91% { opacity: 0.8; transform: translate(-2px, 0); }
+  92% { opacity: 1; transform: translate(2px, 0); }
+  93% { opacity: 0.9; transform: translate(0, 1px); }
+  94%, 100% { opacity: 1; transform: translate(0); }
+}
+
+/* Terminal Cursor */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+  background: var(--terminal-amber);
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Blog Content - Terminal Style */
+.blog-content {
+  font-family: var(--font-mono), 'VT323', monospace;
+}
+
+/* Blog Headers - Terminal Prefix Markers */
+.blog-content h1,
+.blog-content h2,
+.blog-content h3 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--terminal-amber);
+  background: transparent;
+}
+
+.blog-content h1::before {
+  content: '# ';
+  color: var(--terminal-amber);
+  opacity: 0.7;
+}
+
+.blog-content h1 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 199, 71, 0.4);
+  padding-bottom: 0.5rem;
+}
+
+.blog-content h2::before {
+  content: '## ';
+  color: var(--terminal-amber);
+  opacity: 0.6;
+}
+
+.blog-content h2 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 199, 71, 0.9);
+}
+
+.blog-content h3::before {
+  content: '### ';
+  color: var(--terminal-amber);
+  opacity: 0.5;
+}
+
+.blog-content h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 199, 71, 0.8);
+}
+
+/* Blog Body Text - Cool White/Gray */
+.blog-content p,
+.blog-content li,
+.blog-content blockquote,
+.blog-content td {
+  color: rgba(200, 210, 220, 0.85);
+}
+
+.blog-content pre {
+  position: relative;
+  border-radius: 0;
+  padding-top: 24px !important;
+}
+
+.blog-content pre::before {
+  content: '[ CODE ]';
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--terminal-amber);
+  font-size: 10px;
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.blog-content pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.blog-content table {
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  width: 100%;
+  table-layout: fixed;
+  margin: 1rem 0;
+  border: 2px solid var(--terminal-amber) !important;
+}
+
+.blog-content table thead {
+  background: rgba(245, 158, 11, 0.3);
+  border-bottom: 2px solid var(--terminal-amber);
+}
+
+.blog-content table th,
+.blog-content table td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: top;
+  padding: 8px 12px !important;
+  border: 1px solid rgba(255, 199, 71, 0.5) !important;
+  font-size: 15px !important;
+}
+
+.blog-content table th {
+  white-space: nowrap;
+  color: var(--terminal-amber);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.blog-content table td {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+}
+
+.blog-content table tr {
+  border-bottom: 1px solid rgba(255, 199, 71, 0.4);
+}
+
+.blog-content ul li::before {
+  content: '>';
+  color: var(--terminal-amber);
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.blog-content ol {
+  counter-reset: terminal-counter;
+}
+
+.blog-content ol li {
+  counter-increment: terminal-counter;
+}
+
+.blog-content ol li::before {
+  content: counter(terminal-counter, decimal-leading-zero) '.';
+  color: var(--terminal-amber);
+  margin-right: 8px;
+  opacity: 0.7;
+  font-size: 10px;
+}
+
+/* Pixel Art Filter */
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--terminal-amber);
+  border: 2px solid var(--terminal-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-dark-amber);
+}
+
+/* Utility Classes for Alignment */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-spacing {
+  margin-bottom: 4rem;
+}
+
+.box-padding {
+  padding: 2.5rem;
+}
+
+.tight-spacing {
+  margin-bottom: 2rem;
+}
+
+/* Better text hierarchy */
+h1 {
+  font-size: 4rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: var(--terminal-amber);
+}
+
+h2 {
+  font-size: 2.75rem;
+  line-height: 1.3;
+  margin-bottom: 1.25rem;
+  color: var(--text-white);
+}
+
+h3 {
+  font-size: 2rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  color: var(--terminal-amber);
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+/* Box shadows for depth */
+.border-amber-500 {
+  box-shadow: 0 0 20px rgba(255, 199, 71, 0.1);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .box-padding {
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+}

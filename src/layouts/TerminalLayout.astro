@@ -1,0 +1,68 @@
+---
+/**
+ * TerminalLayout - Full VT510 terminal page chrome
+ * 
+ * @prop {string} title - Page title for <head>
+ * @prop {string} section - Terminal section name (e.g., "PROJECT_DATABASE")
+ * @prop {string} [description] - Meta description
+ */
+import Layout from './Layout.astro';
+import TerminalHeader from '../components/TerminalHeader.astro';
+
+interface Props {
+  title: string;
+  section: string;
+  description?: string;
+}
+
+const { title, section, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <TerminalHeader />
+  
+  <main class="flex-1 w-full px-2 md:px-4 py-2 font-mono flex flex-col">
+    
+    <!-- Main Terminal Container -->
+    <div class="flex-1 border-2 border-amber-500 bg-black/90 p-3 md:p-4 flex flex-col">
+      
+      <!-- Terminal Title Bar -->
+      <div class="flex items-center justify-between border-b border-amber-500/50 pb-2 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-amber-500">■</span>
+          <span class="text-amber-500 text-sm">VT510</span>
+          <span class="text-amber-500/50 text-sm">|</span>
+          <span class="text-white text-sm">{section}</span>
+        </div>
+        <div class="text-amber-500/70 text-xs" id="datetime">07-JAN-2026 16:13:07</div>
+      </div>
+
+      <!-- Page Content Slot with CRT spacing -->
+      <div class="terminal-content flex-1">
+        <slot />
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="w-full px-2 md:px-4 py-1 text-center text-amber-500/60 text-xs bg-amber-500/10 border-t border-amber-500/50">
+      S1=GITHUB  |  ASTRO-5.0  |  UTF-8  |  SOLIDSNAKEDEV  |  VT510
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const day = now.getDate().toString().padStart(2, '0');
+    const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+    const time = now.toTimeString().slice(0,8);
+    const el = document.getElementById('datetime');
+    if (el) el.textContent = `${day}-${month}-${year} ${time}`;
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>

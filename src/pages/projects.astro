@@ -1,0 +1,202 @@
+---
+import TerminalLayout from '../layouts/TerminalLayout.astro';
+import { 
+  Table, 
+  TableRow, 
+  Card, 
+  CardGrid, 
+  StatusBar, 
+  CursorBlock
+} from '../components/terminal';
+
+const projects = [
+  {
+    name: 'EVOLUTION_SDK',
+    status: { text: 'ACTIVE', color: 'text-green-400' },
+    stack: 'TypeScript, Effect, Cardano',
+    type: 'SDK',
+    desc: 'TypeScript first Cardano development framework with static type inference. Build robust Cardano applications with modern TypeScript and comprehensive type safety.',
+    links: [
+      { label: 'VIEW_CODE', href: 'https://github.com/IntersectMBO/evolution-sdk', primary: true },
+      { label: 'DOCS', href: 'https://intersectmbo.github.io/evolution-sdk' }
+    ],
+    pid: '001',
+    org: 'IntersectMBO',
+    role: 'CONTRIBUTOR'
+  },
+  {
+    name: 'HYDRA_MANAGER',
+    status: { text: 'ACTIVE', color: 'text-green-400' },
+    stack: 'Next.js, TypeScript, Turborepo',
+    type: 'Developer Tools',
+    desc: 'Management tools for Hydra Head protocol. Streamline Layer 2 scaling solutions on Cardano with monitoring and administration utilities.',
+    links: [
+      { label: 'VIEW_CODE', href: 'https://github.com/no-witness-labs/hydra-manager', primary: true }
+    ],
+    pid: '002',
+    org: 'no_witness_labs',
+    role: 'MAINTAINER'
+  },
+  {
+    name: 'FIREHOSE_CARDANO',
+    status: { text: 'ACTIVE', color: 'text-green-400' },
+    stack: 'Go, Rust, gRPC, Protobuf',
+    type: 'Infrastructure',
+    desc: 'Firehose instrumentation for Cardano blockchain. Real-time block streaming, gRPC API, and Substreams support for unified data fetching.',
+    links: [
+      { label: 'VIEW_CODE', href: 'https://github.com/no-witness-labs/firehose-cardano', primary: true }
+    ],
+    pid: '003',
+    org: 'no_witness_labs',
+    role: 'MAINTAINER'
+  },
+  {
+    name: 'MIDNIGHT_ERC20',
+    status: { text: 'PLANNED', color: 'text-blue-400' },
+    stack: 'Compact, TypeScript, Midnight',
+    type: 'Smart Contract',
+    desc: 'ERC20 token implementation adapted for Midnight Network using Compact language. FungibleToken with privacy preserving features.',
+    links: [
+      { label: 'VIEW_CODE', href: 'https://github.com/no-witness-labs/midnight-erc20', primary: true }
+    ],
+    pid: '004',
+    org: 'no_witness_labs',
+    role: 'CONTRIBUTOR'
+  },
+  {
+    name: 'NIXOS_CONFIG',
+    status: { text: 'ACTIVE', color: 'text-green-400' },
+    stack: 'Nix, NixOS, Home Manager',
+    type: 'DevOps',
+    desc: 'Personal NixOS and Home Manager configuration. Reproducible system setup for development environments across NixOS and macOS.',
+    links: [
+      { label: 'VIEW_CODE', href: 'https://github.com/solidsnakedev/nixos-config', primary: true }
+    ],
+    pid: '005',
+    org: 'solidsnakedev',
+    role: 'OWNER'
+  },
+  {
+    name: 'PROOF_OF_TWITTER',
+    status: { text: 'PLANNED', color: 'text-blue-400' },
+    stack: 'ZK Proofs, TypeScript',
+    type: 'Research',
+    desc: 'Zero knowledge proof system for Twitter/X identity verification. Privacy preserving social identity attestation.',
+    links: [
+      { label: 'COMING_SOON', href: 'https://github.com/no-witness-labs/proof-of-twitter', disabled: true }
+    ],
+    pid: '006',
+    org: 'no_witness_labs',
+    role: 'CONTRIBUTOR'
+  }
+];
+
+const activeCount = projects.filter(p => p.status.text === 'ACTIVE').length;
+const tableHeaders = [
+  { label: 'PID', span: 1 },
+  { label: 'NAME', span: 3 },
+  { label: 'STATUS', span: 2 },
+  { label: 'ORG', span: 2 },
+  { label: 'ROLE', span: 2 },
+  { label: 'TYPE', span: 2 }
+];
+---
+
+<TerminalLayout title="PROJECT_DATABASE" section="projects">
+
+  <!-- Process Table -->
+  <Table title="PROJECT LISTING" headers={tableHeaders}>
+    {projects.map((project) => (
+      <TableRow href={project.links[0]?.href}>
+        <span class="col-span-1 text-amber-500/50">{project.pid}</span>
+        <span class="col-span-3 text-white">{project.name}</span>
+        <span class={`col-span-2 ${project.status.color}`}>{project.status.text}</span>
+        <span class="col-span-2 text-cyan-400">{project.org}</span>
+        <span class="col-span-2 text-purple-400">{project.role}</span>
+        <span class="col-span-2 text-white/60">{project.type}</span>
+      </TableRow>
+    ))}
+  </Table>
+
+  <!-- Detailed Project Cards -->
+  <CardGrid cols={2}>
+    {projects.map((project, index) => (
+      <Card 
+        title={project.name} 
+        status={project.status.text} 
+        statusColor={project.status.color}
+        footerRight={project.role}
+      >
+        <!-- Info Grid -->
+        <div class="text-xs space-y-1 mb-3 font-mono">
+          <div class="flex">
+            <span class="text-amber-500 w-16">STACK:</span>
+            <span class="text-white/70">{project.stack}</span>
+          </div>
+          <div class="flex">
+            <span class="text-amber-500 w-16">TYPE:</span>
+            <span class="text-white/70">{project.type}</span>
+          </div>
+          <div class="flex">
+            <span class="text-amber-500 w-16">ORG:</span>
+            <span class="text-cyan-400">{project.org}</span>
+          </div>
+        </div>
+        
+        <!-- Description -->
+        <div class="text-xs text-white/60 mb-3 border-l border-amber-500/30 pl-2 flex-1">
+          <span class="text-amber-500/50"># </span>{project.desc}
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex gap-2 text-xs mt-auto">
+          {project.links.map((link) => (
+            <a 
+              href={link.href}
+              class:list={[
+                'px-2 py-1 border transition-all font-mono',
+                link.disabled 
+                  ? 'border-amber-500/30 text-amber-500/30 cursor-not-allowed' 
+                  : link.primary 
+                    ? 'border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black' 
+                    : 'border-amber-500/50 text-amber-500/70 hover:border-amber-500 hover:text-amber-500'
+              ]}
+            >
+              [{link.label}]
+            </a>
+          ))}
+        </div>
+      </Card>
+    ))}
+  </CardGrid>
+
+  <!-- Additional Info -->
+  <div class="text-xs text-white/60 border-l border-amber-500/30 pl-3">
+    <p>Open-source contributions and additional projects:</p>
+    <p class="mt-1">
+      <span class="text-amber-500/50">→</span>
+      <a href="https://github.com/solidsnakedev" class="text-amber-500 hover:text-white underline ml-1" target="_blank" rel="noopener">
+        github.com/solidsnakedev
+      </a>
+    </p>
+    <p class="mt-1">
+      <span class="text-amber-500/50">→</span>
+      <a href="https://github.com/no-witness-labs" class="text-amber-500 hover:text-white underline ml-1" target="_blank" rel="noopener">
+        github.com/no-witness-labs
+      </a>
+    </p>
+  </div>
+
+  <!-- Cursor -->
+  <CursorBlock />
+
+  <!-- Status Bar -->
+  <StatusBar 
+    items={[
+      { label: 'PROJECTS', value: projects.length.toString() },
+      { label: 'ACTIVE', value: activeCount.toString() },
+      { label: 'PLANNED', value: projects.filter(p => p.status.text === 'PLANNED').length.toString() }
+    ]}
+    status="SYSTEM READY"
+  />
+</TerminalLayout>

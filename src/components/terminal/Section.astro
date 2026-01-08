@@ -1,0 +1,209 @@
+---
+/**
+ * Section - Generic terminal section with CSS borders and bracket header
+ * Use for grouping content with a title. More flexible than Card.
+ * 
+ * @prop {string} [title] - Section title (optional - shows header if provided)
+ * @prop {string} [variant] - Style variant: 'default' | 'subtle' | 'highlight' | 'success' | 'error'
+ * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
+ * @prop {boolean} [corners] - Show corner accents (default: true)
+ * @prop {boolean} [footer] - Show footer (default: false)
+ * @prop {string} [footerText] - Custom footer text
+ * @prop {string} [class] - Additional classes
+ */
+interface Props {
+  title?: string;
+  variant?: 'default' | 'subtle' | 'highlight' | 'success' | 'error';
+  density?: 'compact' | 'default' | 'comfortable';
+  corners?: boolean;
+  footer?: boolean;
+  footerText?: string;
+  noHover?: boolean;
+  class?: string;
+}
+
+const { 
+  title,
+  variant = 'default',
+  density = 'default',
+  corners = true,
+  footer = false,
+  footerText,
+  noHover = false,
+  class: className = ''
+} = Astro.props;
+
+const variants = {
+  default: {
+    border: 'border-amber-500/50',
+    bg: 'bg-black/30',
+    bracket: 'text-amber-500',
+    title: 'text-amber-400',
+    line: 'border-amber-500/30'
+  },
+  subtle: {
+    border: 'border-amber-500/20',
+    bg: 'bg-black/20',
+    bracket: 'text-amber-500/50',
+    title: 'text-amber-500/70',
+    line: 'border-amber-500/20'
+  },
+  highlight: {
+    border: 'border-amber-400/70',
+    bg: 'bg-amber-500/5',
+    bracket: 'text-amber-400',
+    title: 'text-white',
+    line: 'border-amber-400/40'
+  },
+  success: {
+    border: 'border-green-500/50',
+    bg: 'bg-green-500/5',
+    bracket: 'text-green-500',
+    title: 'text-green-400',
+    line: 'border-green-500/30'
+  },
+  error: {
+    border: 'border-red-500/50',
+    bg: 'bg-red-500/5',
+    bracket: 'text-red-500',
+    title: 'text-red-400',
+    line: 'border-red-500/30'
+  }
+};
+
+const v = variants[variant];
+const densityClass = density !== 'default' ? `density-${density}` : '';
+---
+
+<section class:list={['terminal-section relative', v.border, v.bg, corners && 'has-corners', noHover && 'no-hover', densityClass, className]}>
+  {title && (
+    <div class:list={['terminal-section-header flex items-center', `border-b ${v.line}`]}>
+      <span class:list={['text-xs', v.bracket]}>[</span>
+      <span class:list={['text-xs font-bold tracking-wider uppercase', v.title]}>{title}</span>
+      <span class:list={['text-xs', v.bracket]}>]</span>
+      <span class:list={['flex-1 border-t ml-2', v.line]}></span>
+    </div>
+  )}
+  
+  <div class="terminal-section-content">
+    <slot />
+  </div>
+  
+  {footer && (
+    <div class:list={['terminal-section-footer text-xs text-amber-500/40', `border-t ${v.line}`]}>
+      {footerText || '[ END ]'}
+    </div>
+  )}
+</section>
+
+<style>
+  .terminal-section {
+    border-width: 1px;
+    border-style: solid;
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover highlight effect */
+  .terminal-section:not(.no-hover):hover {
+    background: rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.7);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.03);
+  }
+  
+  .terminal-section:not(.no-hover):hover .terminal-section-header {
+    background: rgba(245, 158, 11, 0.1);
+  }
+  
+  .terminal-section-header {
+    padding: var(--t-header-py) var(--t-header-px);
+    gap: var(--t-gap);
+  }
+  
+  .terminal-section-content {
+    padding: var(--t-body-p);
+  }
+  
+  .terminal-section-footer {
+    padding: var(--t-footer-py) var(--t-footer-px);
+    position: relative;
+  }
+  
+  /* Corner accents */
+  .terminal-section.has-corners::before,
+  .terminal-section.has-corners::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: inherit;
+    border-style: solid;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  .terminal-section.has-corners::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+  
+  .terminal-section.has-corners::after {
+    top: -1px;
+    right: -1px;
+    border-width: 2px 2px 0 0;
+  }
+  
+  /* Bottom corners when footer exists */
+  .terminal-section.has-corners .terminal-section-footer::before,
+  .terminal-section.has-corners .terminal-section-footer::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: inherit;
+    border-style: solid;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  .terminal-section.has-corners .terminal-section-footer::before {
+    bottom: -1px;
+    left: -1px;
+    border-width: 0 0 2px 2px;
+  }
+  
+  .terminal-section.has-corners .terminal-section-footer::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+  
+  /* Bottom corners when NO footer - use content area */
+  .terminal-section.has-corners:not(:has(.terminal-section-footer)) .terminal-section-content {
+    position: relative;
+  }
+  
+  .terminal-section.has-corners:not(:has(.terminal-section-footer)) .terminal-section-content::before,
+  .terminal-section.has-corners:not(:has(.terminal-section-footer)) .terminal-section-content::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: inherit;
+    border-style: solid;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  .terminal-section.has-corners:not(:has(.terminal-section-footer)) .terminal-section-content::before {
+    bottom: -1px;
+    left: -1px;
+    border-width: 0 0 2px 2px;
+  }
+  
+  .terminal-section.has-corners:not(:has(.terminal-section-footer)) .terminal-section-content::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+</style>

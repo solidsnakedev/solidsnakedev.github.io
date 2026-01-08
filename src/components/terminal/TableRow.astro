@@ -1,0 +1,43 @@
+---
+/**
+ * TableRow - Single row for terminal table
+ * 
+ * @prop {boolean} [clickable] - Enable hover effects
+ * @prop {string} [href] - Link destination
+ */
+interface Props {
+  clickable?: boolean;
+  href?: string;
+}
+
+const { clickable = false, href } = Astro.props;
+
+// Auto-enable hover when href exists
+const hasHover = clickable || href;
+
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag 
+  href={href}
+  class:list={[
+    'terminal-table-row text-xs grid grid-cols-12 border-b border-amber-500/20',
+    hasHover && 'row-hoverable',
+    href && 'block'
+  ]}
+>
+  <slot />
+</Tag>
+
+<style>
+  .terminal-table-row {
+    padding: var(--t-row-py) var(--t-row-px);
+    gap: var(--t-gap);
+    transition: all 0.15s ease;
+  }
+  
+  .terminal-table-row.row-hoverable:hover {
+    background: rgba(245, 158, 11, 0.15);
+    cursor: pointer;
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+/**
+ * BracketHeader - Reusable [ TITLE ]──── header primitive
+ * For composing custom layouts that need the bracket header style
+ * 
+ * @prop {string} title - Header title
+ * @prop {string} [variant] - Color variant: 'amber' | 'green' | 'red' | 'blue' | 'white'
+ * @prop {string} [size] - Text size: 'xs' | 'sm' | 'base'
+ * @prop {boolean} [line] - Show trailing line (default: true)
+ * @prop {string} [class] - Additional classes
+ */
+interface Props {
+  title: string;
+  variant?: 'amber' | 'green' | 'red' | 'blue' | 'white';
+  size?: 'xs' | 'sm' | 'base';
+  line?: boolean;
+  class?: string;
+}
+
+const { 
+  title,
+  variant = 'amber',
+  size = 'xs',
+  line = true,
+  class: className = ''
+} = Astro.props;
+
+const colors = {
+  amber: { bracket: 'text-amber-500', title: 'text-amber-400', line: 'border-amber-500/30' },
+  green: { bracket: 'text-green-500', title: 'text-green-400', line: 'border-green-500/30' },
+  red: { bracket: 'text-red-500', title: 'text-red-400', line: 'border-red-500/30' },
+  blue: { bracket: 'text-blue-500', title: 'text-blue-400', line: 'border-blue-500/30' },
+  white: { bracket: 'text-gray-400', title: 'text-white', line: 'border-gray-500/30' }
+};
+
+const sizes = {
+  xs: 'text-xs',
+  sm: 'text-sm',
+  base: 'text-base'
+};
+
+const c = colors[variant];
+---
+
+<div class:list={['flex items-center gap-2', className]}>
+  <span class:list={[sizes[size], c.bracket]}>[</span>
+  <span class:list={[sizes[size], 'font-bold tracking-wider uppercase', c.title]}>{title}</span>
+  <span class:list={[sizes[size], c.bracket]}>]</span>
+  {line && <span class:list={['flex-1 border-t ml-1', c.line]}></span>}
+</div>

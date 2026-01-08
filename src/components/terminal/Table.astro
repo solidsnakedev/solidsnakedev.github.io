@@ -1,0 +1,149 @@
+---
+/**
+ * Table - Terminal data table with CSS borders and bracket headers
+ * 
+ * @prop {string} title - Table title
+ * @prop {Array} headers - Column headers with {label, span} objects
+ * @prop {string} [variant] - Style variant: 'default' | 'compact' | 'highlight'
+ * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
+ * @prop {string} [class] - Additional classes
+ */
+interface Header {
+  label: string;
+  span: number; // col-span-X value
+}
+
+interface Props {
+  title: string;
+  headers: Header[];
+  variant?: 'default' | 'compact' | 'highlight';
+  density?: 'compact' | 'default' | 'comfortable';
+  class?: string;
+}
+
+const { 
+  title, 
+  headers, 
+  variant = 'default', 
+  density = 'default',
+  class: className = '' 
+} = Astro.props;
+
+const variants = {
+  default: 'border-amber-500/50',
+  compact: 'border-amber-500/30',
+  highlight: 'border-amber-400/70 shadow-[0_0_10px_rgba(251,191,36,0.2)]'
+};
+
+const densityClass = density !== 'default' ? `density-${density}` : '';
+---
+
+<div class:list={['terminal-table relative', variants[variant], densityClass, className]}>
+  <!-- Header with bracket title -->
+  <div class="terminal-table-header bg-amber-500/10 flex items-center">
+    <span class="text-amber-500 text-xs">[</span>
+    <span class="text-amber-400 text-xs font-bold tracking-wider uppercase">{title}</span>
+    <span class="text-amber-500 text-xs">]</span>
+    <span class="flex-1 border-t border-amber-500/30 ml-2"></span>
+  </div>
+  
+  <!-- Column headers -->
+  <div class="terminal-table-colheaders text-xs text-amber-500/70 grid grid-cols-12 border-b border-amber-500/30 bg-black/50">
+    {headers.map((h) => (
+      <span class={`col-span-${h.span}`}>{h.label}</span>
+    ))}
+  </div>
+  
+  <!-- Content slot for rows -->
+  <slot />
+  
+  <!-- Footer line -->
+  <div class="terminal-table-footer border-t border-amber-500/30 bg-amber-500/5">
+    <span class="text-amber-500/40 text-xs">[ END ]</span>
+  </div>
+</div>
+
+<style>
+  .terminal-table {
+    border: 1px solid;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover highlight effect */
+  .terminal-table:hover {
+    background: rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.7);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.03);
+  }
+  
+  .terminal-table:hover .terminal-table-header {
+    background: rgba(245, 158, 11, 0.15);
+  }
+  
+  .terminal-table-header {
+    padding: var(--t-header-py) var(--t-header-px);
+    gap: var(--t-gap);
+  }
+  
+  .terminal-table-colheaders {
+    padding: var(--t-header-py) var(--t-header-px);
+    gap: var(--t-gap);
+  }
+  
+  .terminal-table-footer {
+    padding: var(--t-footer-py) var(--t-footer-px);
+  }
+  
+  /* CSS corner accents */
+  .terminal-table::before,
+  .terminal-table::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: rgb(251 191 36 / 0.6);
+    border-style: solid;
+    pointer-events: none;
+  }
+  
+  .terminal-table::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+  
+  .terminal-table::after {
+    top: -1px;
+    right: -1px;
+    border-width: 2px 2px 0 0;
+  }
+  
+  /* Bottom corners using footer pseudo-elements */
+  .terminal-table-footer {
+    position: relative;
+  }
+  
+  .terminal-table-footer::before,
+  .terminal-table-footer::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: rgb(251 191 36 / 0.6);
+    border-style: solid;
+    pointer-events: none;
+  }
+  
+  .terminal-table-footer::before {
+    bottom: -1px;
+    left: -1px;
+    border-width: 0 0 2px 2px;
+  }
+  
+  .terminal-table-footer::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+</style>

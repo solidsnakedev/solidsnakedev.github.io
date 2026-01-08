@@ -1,0 +1,46 @@
+---
+/**
+ * Divider - Terminal-style horizontal divider
+ * 
+ * @prop {string} [label] - Optional center label
+ * @prop {string} [variant] - Style: 'solid' | 'dashed' | 'dotted'
+ * @prop {string} [color] - Color: 'amber' | 'green' | 'red' | 'gray'
+ * @prop {string} [class] - Additional classes
+ */
+interface Props {
+  label?: string;
+  variant?: 'solid' | 'dashed' | 'dotted';
+  color?: 'amber' | 'green' | 'red' | 'gray';
+  class?: string;
+}
+
+const { 
+  label,
+  variant = 'solid',
+  color = 'amber',
+  class: className = ''
+} = Astro.props;
+
+const colors = {
+  amber: 'border-amber-500/30 text-amber-500/50',
+  green: 'border-green-500/30 text-green-500/50',
+  red: 'border-red-500/30 text-red-500/50',
+  gray: 'border-gray-500/30 text-gray-500/50'
+};
+
+const styles = {
+  solid: 'border-solid',
+  dashed: 'border-dashed',
+  dotted: 'border-dotted'
+};
+---
+
+{label ? (
+  <div class:list={['flex items-center gap-3 py-2', colors[color], className]}>
+    <span class:list={['flex-1 border-t', styles[variant]]}></span>
+    <span class="text-xs">{label}</span>
+    <span class:list={['flex-1 border-t', styles[variant]]}></span>
+  </div>
+) : (
+  <div class:list={['border-t py-2', colors[color], styles[variant], className]}></div>
+)}

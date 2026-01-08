@@ -1,0 +1,146 @@
+---
+import TerminalLayout from '../../layouts/TerminalLayout.astro';
+import { 
+  Section, 
+  StatusBar, 
+  CursorBlock,
+  BracketHeader,
+  Divider
+} from '../../components/terminal';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+// VMS-style date formatting
+function formatVMSDate(date: Date) {
+  const day = date.getDate().toString().padStart(2, '0');
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+const formattedDate = formatVMSDate(post.data.pubDate);
+
+// Calculate reading time (rough estimate)
+const wordCount = post.body.split(/\s+/).length;
+const readingTime = Math.ceil(wordCount / 200);
+---
+
+<TerminalLayout title="BLOG_VIEWER" section="blog" description={post.data.description}>
+  <!-- Article Container -->
+  <article class="flex-1">
+    
+    <!-- File Header Section -->
+    <Section title={`FILE: ${post.slug}.md`} variant="highlight" footer footerText={`${wordCount} words | ~${readingTime} min read`} noHover>
+      <!-- Metadata Grid -->
+      <div class="px-3 py-2 text-xs space-y-2">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <div>
+            <span class="text-amber-500">TITLE:</span>
+            <span class="text-white ml-1">{post.data.title}</span>
+          </div>
+          <div>
+            <span class="text-amber-500">DATE:</span>
+            <span class="text-cyan-400 ml-1">{formattedDate}</span>
+          </div>
+          <div>
+            <span class="text-amber-500">AUTHOR:</span>
+            <span class="text-white ml-1">{post.data.author}</span>
+          </div>
+          <div>
+            <span class="text-amber-500">READ_TIME:</span>
+            <span class="text-green-400 ml-1">~{readingTime} min</span>
+          </div>
+        </div>
+        
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex items-center gap-2 pt-1">
+            <span class="text-amber-500">TAGS:</span>
+            <div class="flex gap-1 flex-wrap">
+              {post.data.tags.map((tag) => (
+                <span class="px-1.5 py-0.5 border border-purple-500/50 text-purple-400">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Description -->
+      <div class="px-3 py-2 text-xs text-white/70 border-t border-amber-500/30 bg-black/30">
+        <span class="text-amber-500/50"># </span>{post.data.description}
+      </div>
+    </Section>
+
+    <!-- Back Navigation -->
+    <div class="my-4">
+      <a href="/blog" class="inline-flex items-center gap-2 text-xs text-amber-500 hover:text-white transition-colors border border-amber-500/50 px-2 py-1 hover:bg-amber-500/10">
+        <span>←</span>
+        <span>[BACK_TO_ARCHIVE]</span>
+      </a>
+    </div>
+
+    <!-- Content Section -->
+    <Section variant="subtle" corners={false} noHover>
+      <div class="p-4 md:p-6">
+        <div class="blog-content prose prose-invert prose-sm max-w-none text-[14px]
+          prose-p:leading-relaxed prose-p:mb-2 prose-p:text-[13px]
+          prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-white hover:prose-a:underline
+          prose-strong:text-amber-400 prose-strong:font-bold
+          prose-code:text-cyan-400 prose-code:bg-black/70 prose-code:px-1 prose-code:py-0.5 prose-code:text-[11px] prose-code:font-mono prose-code:border prose-code:border-amber-500/20
+          prose-pre:bg-black/90 prose-pre:border prose-pre:border-amber-500/50 prose-pre:p-4 prose-pre:overflow-x-auto prose-pre:text-[12px] prose-pre:leading-relaxed
+          prose-blockquote:border-l-2 prose-blockquote:border-amber-500 prose-blockquote:pl-3 prose-blockquote:italic prose-blockquote:bg-black/30 prose-blockquote:py-2 prose-blockquote:text-[13px]
+          prose-ul:list-none prose-ul:ml-2 prose-ul:text-[13px]
+          prose-ol:list-decimal prose-ol:ml-4 prose-ol:text-[13px]
+          prose-li:mb-1 prose-li:pl-2
+          prose-table:border-2 prose-table:border-amber-500 prose-table:text-[15px] prose-table:w-full
+          prose-thead:bg-amber-500/30 prose-thead:border-b-2 prose-thead:border-amber-500
+          prose-th:text-amber-400 prose-th:border prose-th:border-amber-500/60 prose-th:p-2 prose-th:text-left prose-th:font-mono prose-th:uppercase prose-th:text-[15px]
+          prose-td:border prose-td:border-amber-500/40 prose-td:p-2 prose-td:font-mono prose-td:text-[13px]
+          prose-tr:border-b prose-tr:border-amber-500/40
+          prose-img:border prose-img:border-amber-500/50
+          prose-hr:border-amber-500/30
+        ">
+          <Content />
+        </div>
+      </div>
+    </Section>
+
+    <!-- Footer Section -->
+    <Section title="END OF FILE" variant="default" class="mt-4" noHover>
+      <div class="px-3 py-2 flex justify-between items-center text-xs">
+        <a href="/blog" class="text-amber-500 hover:text-white transition-colors flex items-center gap-1">
+          <span>←</span>
+          <span>[BACK_TO_ARCHIVE]</span>
+        </a>
+        <span class="text-amber-500/50">[ EOF ]</span>
+        <span class="text-amber-500/50">{wordCount} words</span>
+      </div>
+    </Section>
+
+  </article>
+
+  <!-- Command Prompt -->
+  <CursorBlock class="mt-4" />
+
+  <!-- Status Bar -->
+  <StatusBar 
+    items={[
+      { label: 'FILE', value: `${post.slug}.md` },
+      { label: 'WORDS', value: wordCount.toString() },
+      { label: 'TIME', value: `~${readingTime}m` }
+    ]}
+    status="RENDERED"
+  />
+</TerminalLayout>

@@ -1,0 +1,33 @@
+---
+/**
+ * ProjectItem - Project display with version bar
+ * 
+ * @prop {string} name - Project name
+ * @prop {string} version - Version string
+ * @prop {number} progress - Progress percentage
+ * @prop {string} status - Status text
+ */
+interface Props {
+  name: string;
+  version: string;
+  progress: number;
+  status: string;
+}
+
+const { name, version, progress, status } = Astro.props;
+
+const filled = Math.floor(progress / 10);
+const empty = 10 - filled;
+const bar = '█'.repeat(filled) + '░'.repeat(empty);
+---
+
+<div class="border-b border-amber-500/20 pb-2">
+  <div class="flex justify-between text-xs mb-1">
+    <span class="text-amber-300">{name}</span>
+    <span class="text-amber-500/50">{version}</span>
+  </div>
+  <div class="flex items-center gap-2 text-xs">
+    <span class="text-green-400 font-mono">[{bar}]</span>
+    <span class="text-amber-500/70">{status}</span>
+  </div>
+</div>

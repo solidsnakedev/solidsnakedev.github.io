@@ -1,0 +1,117 @@
+---
+/**
+ * Panel - Reusable bordered container with bracket-style header
+ * 
+ * @prop {string} title - Panel title displayed in header
+ * @prop {string} [class] - Additional CSS classes
+ * @prop {boolean} [flex] - Enable flex column layout
+ * @prop {string} [variant] - Style variant: 'default' | 'subtle' | 'highlight'
+ * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
+ * @prop {boolean} [corners] - Show corner accents (default: true)
+ */
+interface Props {
+  title: string;
+  class?: string;
+  flex?: boolean;
+  variant?: 'default' | 'subtle' | 'highlight';
+  density?: 'compact' | 'default' | 'comfortable';
+  corners?: boolean;
+}
+
+const { 
+  title, 
+  class: className = '', 
+  flex = false,
+  variant = 'default',
+  density = 'default',
+  corners = true
+} = Astro.props;
+
+const variants = {
+  default: {
+    border: 'border-amber-500/50',
+    header: 'bg-amber-500/10',
+    bracket: 'text-amber-500',
+    title: 'text-amber-400'
+  },
+  subtle: {
+    border: 'border-amber-500/30',
+    header: 'bg-black/30',
+    bracket: 'text-amber-500/60',
+    title: 'text-amber-500/80'
+  },
+  highlight: {
+    border: 'border-amber-400/70',
+    header: 'bg-amber-500/20',
+    bracket: 'text-amber-400',
+    title: 'text-white'
+  }
+};
+
+const v = variants[variant];
+const densityClass = density !== 'default' ? `density-${density}` : '';
+---
+
+<div class:list={[
+  'terminal-panel relative',
+  v.border,
+  flex && 'flex flex-col',
+  corners && 'has-corners',
+  densityClass,
+  className
+]}>
+  <!-- Header with bracket title -->
+  <div class:list={['terminal-panel-header flex items-center border-b', v.header, v.border]}>
+    <span class:list={['text-xs', v.bracket]}>[</span>
+    <span class:list={['text-xs font-bold tracking-wider uppercase', v.title]}>{title}</span>
+    <span class:list={['text-xs', v.bracket]}>]</span>
+    <span class="flex-1 border-t border-amber-500/20 ml-2"></span>
+  </div>
+  
+  <!-- Content -->
+  <div class="terminal-panel-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .terminal-panel {
+    border-width: 1px;
+    border-style: solid;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .terminal-panel-header {
+    padding: var(--t-header-py) var(--t-header-px);
+    gap: var(--t-gap);
+  }
+  
+  .terminal-panel-body {
+    padding: var(--t-body-p);
+  }
+  
+  /* Corner accents */
+  .terminal-panel.has-corners::before,
+  .terminal-panel.has-corners::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: inherit;
+    border-style: solid;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  .terminal-panel.has-corners::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+  
+  .terminal-panel.has-corners::after {
+    top: -1px;
+    right: -1px;
+    border-width: 2px 2px 0 0;
+  }
+</style>

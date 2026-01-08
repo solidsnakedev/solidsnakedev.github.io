@@ -1,0 +1,44 @@
+---
+/**
+ * Prompt - Terminal command prompt line
+ * 
+ * @prop {string} [user] - Username (default: solidsnake)
+ * @prop {string} [host] - Hostname (default: dev)
+ * @prop {string} [path] - Current path (default: ~)
+ * @prop {string} [command] - Command to display (alias: cmd)
+ * @prop {string} [cmd] - Command to display (alias for command)
+ * @prop {boolean} [cursor] - Show blinking cursor (default: false)
+ * @prop {string} [class] - Additional classes
+ */
+interface Props {
+  user?: string;
+  host?: string;
+  path?: string;
+  command?: string;
+  cmd?: string;
+  cursor?: boolean;
+  class?: string;
+}
+
+const { 
+  user = 'solidsnake', 
+  host = 'dev', 
+  path = '~', 
+  command,
+  cmd,
+  cursor = false,
+  class: className = ''
+} = Astro.props;
+
+// Support both 'command' and 'cmd' props
+const displayCmd = command || cmd || '';
+---
+
+<div class:list={['text-sm flex items-center flex-wrap', className]}>
+  <span class="text-green-400">{user}@{host}</span>
+  <span class="text-white">:</span>
+  <span class="text-blue-400">{path}</span>
+  <span class="text-white">$ </span>
+  {displayCmd && <span class="text-white">{displayCmd}</span>}
+  {cursor && <span class="w-2 h-4 bg-amber-500 animate-pulse ml-1"></span>}
+</div>

@@ -1,0 +1,35 @@
+---
+/**
+ * CardGrid - Responsive grid layout for cards
+ * 
+ * @prop {number} [cols] - Number of columns on large screens (default: 2)
+ * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
+ * @prop {string} [class] - Additional classes
+ */
+interface Props {
+  cols?: 1 | 2 | 3 | 4;
+  density?: 'compact' | 'default' | 'comfortable';
+  class?: string;
+}
+
+const { cols = 2, density = 'default', class: className = '' } = Astro.props;
+
+const colClasses: Record<number, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+};
+
+const densityClass = density !== 'default' ? `density-${density}` : '';
+---
+
+<div class:list={['terminal-grid grid', colClasses[cols], densityClass, className]}>
+  <slot />
+</div>
+
+<style>
+  .terminal-grid {
+    gap: var(--t-grid-gap);
+  }
+</style>

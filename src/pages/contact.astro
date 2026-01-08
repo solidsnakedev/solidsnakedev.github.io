@@ -1,0 +1,175 @@
+---
+import TerminalLayout from '../layouts/TerminalLayout.astro';
+import { 
+  Table, 
+  TableRow, 
+  Card, 
+  CardGrid, 
+  StatusBar, 
+  CursorBlock,
+  Section
+} from '../components/terminal';
+
+const channels = [
+  {
+    name: 'GITHUB',
+    handle: 'github.com/solidsnakedev',
+    url: 'https://github.com/solidsnakedev',
+    desc: 'Open source contributions & project repositories',
+    port: '443',
+    protocol: 'HTTPS',
+    status: 'ACTIVE'
+  },
+  {
+    name: 'X (TWITTER)',
+    handle: '@solidsnakedev',
+    url: 'https://x.com/solidsnakedev',
+    desc: 'Updates, insights, and blockchain discussions',
+    port: '443',
+    protocol: 'HTTPS',
+    status: 'ACTIVE'
+  },
+  {
+    name: 'DISCORD',
+    handle: 'jonathan777',
+    url: null,
+    desc: 'Community discussions & real time collaboration',
+    port: '443',
+    protocol: 'WSS',
+    status: 'ONLINE'
+  },
+  {
+    name: 'EMAIL',
+    handle: 'jona.ca.eng@gmail.com',
+    url: 'mailto:jona.ca.eng@gmail.com',
+    desc: 'Professional inquiries & collaborations',
+    port: '587',
+    protocol: 'SMTP',
+    status: 'READY'
+  }
+];
+
+const interests = [
+  'Smart contract development & auditing',
+  'Zero knowledge cryptography & privacy protocols',
+  'eUTXO architecture & transaction design',
+  'Cardano ecosystem tools & infrastructure',
+  'Open source contributions',
+  'Developer education & documentation'
+];
+
+const tableHeaders = [
+  { label: 'PROTO', span: 2 },
+  { label: 'PORT', span: 2 },
+  { label: 'SERVICE', span: 3 },
+  { label: 'ADDRESS', span: 3 },
+  { label: 'STATE', span: 2 }
+];
+
+const statusItems = [
+  { label: 'CHANNELS', value: channels.length.toString() },
+  { label: 'ACTIVE', value: channels.filter(c => c.status === 'ACTIVE').length.toString() },
+  { label: 'LATENCY', value: '<24h' }
+];
+---
+
+<TerminalLayout title="CONTACT | SOLIDSNAKEDEV" section="COMM_INTERFACE">
+
+  <!-- Network Connections Table -->
+  <Table title="ACTIVE CONNECTIONS" headers={tableHeaders}>
+    {channels.map((channel) => (
+      <TableRow clickable>
+        <span class="col-span-2 text-cyan-400">{channel.protocol}</span>
+        <span class="col-span-2 text-white/60">{channel.port}</span>
+        <span class="col-span-3 text-white">{channel.name}</span>
+        <span class="col-span-3 text-amber-500 truncate">{channel.handle}</span>
+        <span class="col-span-2 text-green-400">{channel.status}</span>
+      </TableRow>
+    ))}
+  </Table>
+
+  <!-- Channel Cards Grid -->
+  <CardGrid cols={2}>
+    {channels.map((channel, index) => (
+      <Card 
+        title={channel.name} 
+        status={channel.status}
+        footer={`[ CHANNEL_${String(index + 1).padStart(2, '0')} ]`}
+        footerRight={`pid:${1000 + index}`}
+      >
+        <div class="text-xs space-y-1 mb-2 font-mono">
+          <div class="flex">
+            <span class="text-amber-500 w-16">PROTO:</span>
+            <span class="text-cyan-400">{channel.protocol}</span>
+          </div>
+          <div class="flex">
+            <span class="text-amber-500 w-16">PORT:</span>
+            <span class="text-white/70">{channel.port}</span>
+          </div>
+          <div class="flex">
+            <span class="text-amber-500 w-16">ADDR:</span>
+            {channel.url ? (
+              <a href={channel.url} target="_blank" rel="noopener noreferrer" class="text-amber-500 hover:text-white transition-colors truncate">
+                {channel.handle}
+              </a>
+            ) : (
+              <span class="text-amber-500">{channel.handle}</span>
+            )}
+          </div>
+        </div>
+        
+        <div class="text-xs text-white/60 border-l border-amber-500/30 pl-2">
+          <span class="text-amber-500/50"># </span>{channel.desc}
+        </div>
+
+        {channel.url && (
+          <div class="mt-2">
+            <a 
+              href={channel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-2 py-1 border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black transition-all text-xs font-mono"
+            >
+              [CONNECT]
+            </a>
+          </div>
+        )}
+      </Card>
+    ))}
+  </CardGrid>
+
+  <!-- Interests Section -->
+  <Section title="/etc/profile.d/interests.conf" variant="default" footer footerText="[ END OF CONFIG ]">
+    <div class="p-3 text-xs space-y-1">
+      {interests.map((interest, i) => (
+        <div class="flex items-start gap-2">
+          <span class="text-amber-500/50">{String(i + 1).padStart(2, '0')}:</span>
+          <span class="text-green-400">export</span>
+          <span class="text-white">INTEREST_{i}=</span>
+          <span class="text-cyan-400">"{interest}"</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Message Section -->
+  <Card title="MESSAGE_OF_THE_DAY">
+    <p class="text-sm text-white/80 mb-2">
+      Whether you're working on a <span class="text-amber-500">Cardano</span> project, exploring <span class="text-amber-500">Midnight</span>, 
+      or building privacy focused blockchain solutions, I'm always 
+      interested in connecting with fellow developers.
+    </p>
+    <div class="text-xs space-y-1 mt-3 border-l border-amber-500/30 pl-2">
+      <div class="text-amber-500">→ Reach out through any channel above</div>
+      <div class="text-amber-500">→ Response time: <span class="text-green-400">24 to 48 hours</span></div>
+      <div class="text-amber-500">→ PGP: <span class="text-white/50">[FINGERPRINT_COMING_SOON]</span></div>
+    </div>
+  </Card>
+
+  <!-- Cursor -->
+  <CursorBlock />
+
+  <!-- Status Bar -->
+  <StatusBar items={statusItems} status="ACCEPTING CONNECTIONS" />
+
+</TerminalLayout>

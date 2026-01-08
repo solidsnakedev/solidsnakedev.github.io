@@ -1,0 +1,68 @@
+---
+/**
+ * StatusBar - Bottom status bar with stats
+ * 
+ * @prop {Array} items - Array of stat items: { label, value, href? }
+ * @prop {string} [status] - Status message (default: "SYSTEM READY")
+ * @prop {string} [statusColor] - Status indicator color (default: text-green-400)
+ * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
+ * @prop {string} [class] - Additional classes
+ */
+interface StatusItem {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+interface Props {
+  items: StatusItem[];
+  status?: string;
+  statusColor?: string;
+  density?: 'compact' | 'default' | 'comfortable';
+  class?: string;
+}
+
+const { 
+  items, 
+  status = 'SYSTEM READY',
+  statusColor = 'text-green-400',
+  density = 'default',
+  class: className = ''
+} = Astro.props;
+
+const densityClass = density !== 'default' ? `density-${density}` : '';
+---
+
+<div class:list={['terminal-statusbar border-t border-amber-500/50 flex flex-wrap justify-between items-center text-xs', densityClass, className]}>
+  <div class="terminal-statusbar-items flex text-amber-500/70 flex-wrap">
+    {items.map((item, i) => (
+      <>
+        {item.href ? (
+          <a href={item.href} target="_blank" class="text-amber-500 hover:text-white transition-colors">
+            {item.label}{item.value && `: ${item.value}`}
+          </a>
+        ) : (
+          <span>
+            {item.label}{item.value && `: ${item.value}`}
+          </span>
+        )}
+        {i < items.length - 1 && <span>|</span>}
+      </>
+    ))}
+  </div>
+  <div class="text-amber-500">
+    <span class={statusColor}>●</span> {status}
+  </div>
+</div>
+
+<style>
+  .terminal-statusbar {
+    margin-top: var(--t-space-xl);
+    padding-top: var(--t-space-md);
+    gap: var(--t-gap);
+  }
+  
+  .terminal-statusbar-items {
+    gap: var(--t-grid-gap);
+  }
+</style>

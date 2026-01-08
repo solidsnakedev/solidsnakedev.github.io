@@ -1,0 +1,29 @@
+---
+/**
+ * ProgressBar - Terminal-style progress bar with label
+ * 
+ * @prop {string} label - Item name
+ * @prop {number} value - Progress percentage (0-100)
+ * @prop {string} [color] - Tailwind color class (default: amber-500)
+ * @prop {boolean} [showValue] - Show numeric value (default: true)
+ */
+interface Props {
+  label: string;
+  value: number;
+  color?: string;
+  showValue?: boolean;
+}
+
+const { label, value, color = 'amber-500', showValue = true } = Astro.props;
+
+// Generate ASCII progress bar
+const filled = Math.floor(value / 5);
+const empty = 20 - filled;
+const bar = '█'.repeat(filled) + '░'.repeat(empty);
+---
+
+<div class="flex items-center text-xs">
+  <span class="w-24 text-amber-300 truncate">{label}</span>
+  <span class={`font-mono text-${color}`}>[{bar}]</span>
+  {showValue && <span class="ml-2 text-amber-500/70 w-8">{value}%</span>}
+</div>

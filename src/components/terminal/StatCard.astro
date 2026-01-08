@@ -1,0 +1,27 @@
+---
+/**
+ * StatCard - Large stat display with label
+ * 
+ * @prop {string} value - The main value/number
+ * @prop {string} label - Description label
+ * @prop {string} [color] - Tailwind text color (default: amber-400)
+ */
+interface Props {
+  value: string;
+  label: string;
+  color?: string;
+}
+
+const { value, label, color = 'amber-400' } = Astro.props;
+---
+
+<div class="terminal-stat-card text-center border border-amber-500/30">
+  <div class={`text-lg font-bold text-${color}`}>{value}</div>
+  <div class="text-xs text-amber-500/70">{label}</div>
+</div>
+
+<style>
+  .terminal-stat-card {
+    padding: var(--t-space-md);
+  }
+</style>

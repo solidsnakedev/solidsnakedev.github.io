@@ -1,0 +1,188 @@
+---
+/**
+ * Card - Terminal detail card with CSS borders and bracket headers
+ * 
+ * @prop {string} title - Card title
+ * @prop {string} [status] - Status text
+ * @prop {string} [statusColor] - Status color class (default: text-green-400)
+ * @prop {string} [footer] - Footer text (default: shows END marker)
+ * @prop {string} [footerRight] - Right-side footer text
+ * @prop {string} [variant] - Style variant: 'default' | 'compact' | 'highlight' | 'success' | 'warning'
+ * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
+ * @prop {boolean} [corners] - Show corner accents (default: true)
+ */
+interface Props {
+  title: string;
+  status?: string;
+  statusColor?: string;
+  footer?: string;
+  footerRight?: string;
+  variant?: 'default' | 'compact' | 'highlight' | 'success' | 'warning';
+  density?: 'compact' | 'default' | 'comfortable';
+  corners?: boolean;
+}
+
+const { 
+  title, 
+  status, 
+  statusColor = 'text-green-400',
+  footer,
+  footerRight,
+  variant = 'default',
+  density = 'default',
+  corners = true
+} = Astro.props;
+
+const variants = {
+  default: {
+    border: 'border-amber-500/50',
+    header: 'bg-amber-500/10',
+    bracket: 'text-amber-500',
+    title: 'text-amber-400'
+  },
+  compact: {
+    border: 'border-amber-500/30',
+    header: 'bg-black/50',
+    bracket: 'text-amber-500/70',
+    title: 'text-amber-400/90'
+  },
+  highlight: {
+    border: 'border-amber-400/70',
+    header: 'bg-amber-500/20',
+    bracket: 'text-amber-400',
+    title: 'text-white'
+  },
+  success: {
+    border: 'border-green-500/50',
+    header: 'bg-green-500/10',
+    bracket: 'text-green-500',
+    title: 'text-green-400'
+  },
+  warning: {
+    border: 'border-yellow-500/50',
+    header: 'bg-yellow-500/10',
+    bracket: 'text-yellow-500',
+    title: 'text-yellow-400'
+  }
+};
+
+const v = variants[variant];
+const densityClass = density !== 'default' ? `density-${density}` : '';
+---
+
+<div class:list={['terminal-card relative flex flex-col', v.border, corners && 'has-corners', densityClass]}>
+  <!-- Card Header -->
+  <div class:list={['terminal-card-header border-b border-inherit flex items-center justify-between', v.header]}>
+    <div class="terminal-card-title-row flex items-center">
+      <span class:list={['text-xs', v.bracket]}>[</span>
+      <span class:list={['text-sm font-bold tracking-wide', v.title]}>{title}</span>
+      <span class:list={['text-xs', v.bracket]}>]</span>
+      <span class="flex-1 border-t border-current opacity-30 ml-2 max-w-16"></span>
+    </div>
+    {status && (
+      <div class="terminal-card-status flex items-center text-xs">
+        <span class={statusColor}>●</span>
+        <span class={statusColor}>{status}</span>
+      </div>
+    )}
+  </div>
+  
+  <!-- Card Body -->
+  <div class="terminal-card-body flex-1 bg-black/30">
+    <slot />
+  </div>
+  
+  <!-- Card Footer -->
+  <div class="terminal-card-footer border-t border-inherit text-xs text-amber-500/40 flex justify-between bg-black/20">
+    <span>{footer || '[ END ]'}</span>
+    {footerRight && <span class="text-amber-500/60">{footerRight}</span>}
+  </div>
+</div>
+
+<style>
+  .terminal-card {
+    border-width: 1px;
+    border-style: solid;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover highlight effect */
+  .terminal-card:hover {
+    background: rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.7);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.03);
+  }
+  
+  .terminal-card:hover .terminal-card-header {
+    background: rgba(245, 158, 11, 0.15);
+  }
+  
+  .terminal-card-header {
+    padding: var(--t-header-py) var(--t-header-px);
+  }
+  
+  .terminal-card-title-row,
+  .terminal-card-status {
+    gap: var(--t-gap);
+  }
+  
+  .terminal-card-body {
+    padding: var(--t-body-p);
+  }
+  
+  .terminal-card-footer {
+    padding: var(--t-footer-py) var(--t-footer-px);
+    position: relative;
+  }
+  
+  /* Corner accents - only when has-corners class is present */
+  .terminal-card.has-corners::before,
+  .terminal-card.has-corners::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: inherit;
+    border-style: solid;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  
+  .terminal-card.has-corners::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+  
+  .terminal-card.has-corners::after {
+    top: -1px;
+    right: -1px;
+    border-width: 2px 2px 0 0;
+  }
+  
+  /* Bottom corners */
+  .terminal-card.has-corners .terminal-card-footer::before,
+  .terminal-card.has-corners .terminal-card-footer::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: inherit;
+    border-style: solid;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  
+  .terminal-card.has-corners .terminal-card-footer::before {
+    bottom: -1px;
+    left: -1px;
+    border-width: 0 0 2px 2px;
+  }
+  
+  .terminal-card.has-corners .terminal-card-footer::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+</style>

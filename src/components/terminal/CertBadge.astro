@@ -1,0 +1,33 @@
+---
+/**
+ * CertBadge - Certification status badge
+ * 
+ * @prop {string} name - Certification name
+ * @prop {string} year - Year obtained
+ * @prop {'VALID' | 'RENEWED' | 'PENDING' | 'EXPIRED'} status - Certification status
+ */
+interface Props {
+  name: string;
+  year: string;
+  status: 'VALID' | 'RENEWED' | 'PENDING' | 'EXPIRED';
+}
+
+const { name, year, status } = Astro.props;
+
+const statusConfig: Record<string, { color: string; icon: string }> = {
+  VALID: { color: 'text-green-400', icon: '●' },
+  RENEWED: { color: 'text-blue-400', icon: '↻' },
+  PENDING: { color: 'text-amber-400', icon: '○' },
+  EXPIRED: { color: 'text-red-400', icon: '✗' },
+};
+
+const config = statusConfig[status] || statusConfig.VALID;
+---
+
+<div class="flex items-center justify-between text-xs py-1">
+  <span class="text-amber-300">{name}</span>
+  <span class="flex items-center gap-2">
+    <span class="text-amber-500/50">{year}</span>
+    <span class={config.color}>{config.icon} {status}</span>
+  </span>
+</div>
