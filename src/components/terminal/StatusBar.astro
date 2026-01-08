@@ -35,7 +35,7 @@ const {
 const densityClass = getDensityClass(density);
 ---
 
-<div class:list={['terminal-statusbar border-t border-amber-500/50 flex flex-wrap justify-between items-center text-xs px-4 md:px-6', densityClass, className]}>
+<div class:list={['terminal-statusbar border-t border-amber-500/50 flex flex-wrap justify-between items-center text-xs', densityClass, className]}>
   <div class="terminal-statusbar-items flex text-amber-500/70 flex-wrap">
     {items.map((item, i) => (
       <>
@@ -61,10 +61,19 @@ const densityClass = getDensityClass(density);
   .terminal-statusbar {
     margin-top: var(--t-space-xl);
     padding-top: var(--t-space-md);
+    padding-left: var(--t-space-xl);
+    padding-right: var(--t-space-xl);
     gap: var(--t-gap);
   }
   
   .terminal-statusbar-items {
     gap: var(--t-grid-gap);
+  }
+  
+  @media (min-width: 768px) {
+    .terminal-statusbar {
+      padding-left: var(--t-space-2xl);
+      padding-right: var(--t-space-2xl);
+    }
   }
 </style>
