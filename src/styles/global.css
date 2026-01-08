@@ -109,7 +109,6 @@ body {
   overflow-x: hidden;
   text-shadow: var(--phosphor-bloom);
   word-wrap: break-word;
-  animation: rare-flicker 4s ease-in-out infinite;
 }
 
 /* Focus states for accessibility */
@@ -161,7 +160,7 @@ a:focus-visible {
   box-shadow: 
     inset 0 0 80px rgba(0, 0, 0, 0.4),
     0 0 40px rgba(255, 199, 71, 0.05);
-  animation: screen-jitter 0.1s steps(2) infinite;
+  animation: none;
   /* To disable jitter: change to "animation: none;" */
 }
 
@@ -247,9 +246,9 @@ a:focus-visible {
   );
   z-index: 9997;
   pointer-events: none;
-  animation: vhs-line-move 4s linear infinite;
+  animation: none;
   /* opacity: 0.8; */
-  opacity: 1;
+  opacity: 0;
 }
 
 /* Second VHS line (opposite direction) */
@@ -260,7 +259,7 @@ a:focus-visible {
   right: 0;
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
-  animation: vhs-line-move2 2.5s linear infinite;
+  animation: none;
 }
 
 /* Glitch bar (occasional) */
@@ -278,7 +277,7 @@ a:focus-visible {
     rgba(255, 200, 100, 0.25) 80%,
     transparent
   );
-  animation: vhs-glitch 6s steps(1) infinite;
+  animation: none;
   opacity: 0;
 }
 
@@ -316,7 +315,7 @@ a:focus-visible {
   pointer-events: none;
   opacity: 0.08;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  animation: noise-move 0.15s steps(6) infinite;
+  animation: none;
 }
 
 @keyframes noise-move {
