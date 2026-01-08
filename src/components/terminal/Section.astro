@@ -1,10 +1,13 @@
 ---
+import BracketHeader from './BracketHeader.astro';
+import { getVariant, getDensityClass } from '../../utils/terminalVariants.js';
+
 /**
  * Section - Generic terminal section with CSS borders and bracket header
  * Use for grouping content with a title. More flexible than Card.
  * 
  * @prop {string} [title] - Section title (optional - shows header if provided)
- * @prop {string} [variant] - Style variant: 'default' | 'subtle' | 'highlight' | 'success' | 'error'
+ * @prop {string} [variant] - Style variant: 'default' | 'subtle' | 'highlight' | 'success' | 'warning' | 'error'
  * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
  * @prop {boolean} [corners] - Show corner accents (default: true)
  * @prop {boolean} [footer] - Show footer (default: false)
@@ -13,7 +16,7 @@
  */
 interface Props {
   title?: string;
-  variant?: 'default' | 'subtle' | 'highlight' | 'success' | 'error';
+  variant?: 'default' | 'subtle' | 'highlight' | 'success' | 'warning' | 'error';
   density?: 'compact' | 'default' | 'comfortable';
   corners?: boolean;
   footer?: boolean;
@@ -33,55 +36,25 @@ const {
   class: className = ''
 } = Astro.props;
 
-const variants = {
-  default: {
-    border: 'border-amber-500/50',
-    bg: 'bg-black/30',
-    bracket: 'text-amber-500',
-    title: 'text-amber-400',
-    line: 'border-amber-500/30'
-  },
-  subtle: {
-    border: 'border-amber-500/20',
-    bg: 'bg-black/20',
-    bracket: 'text-amber-500/50',
-    title: 'text-amber-500/70',
-    line: 'border-amber-500/20'
-  },
-  highlight: {
-    border: 'border-amber-400/70',
-    bg: 'bg-amber-500/5',
-    bracket: 'text-amber-400',
-    title: 'text-white',
-    line: 'border-amber-400/40'
-  },
-  success: {
-    border: 'border-green-500/50',
-    bg: 'bg-green-500/5',
-    bracket: 'text-green-500',
-    title: 'text-green-400',
-    line: 'border-green-500/30'
-  },
-  error: {
-    border: 'border-red-500/50',
-    bg: 'bg-red-500/5',
-    bracket: 'text-red-500',
-    title: 'text-red-400',
-    line: 'border-red-500/30'
-  }
-};
+const v = getVariant(variant);
+const densityClass = getDensityClass(density);
 
-const v = variants[variant];
-const densityClass = density !== 'default' ? `density-${density}` : '';
+// Map variant to BracketHeader color
+const variantColorMap = {
+  default: 'amber',
+  subtle: 'amber',
+  highlight: 'amber',
+  success: 'green',
+  warning: 'yellow',
+  error: 'red'
+};
+const bracketColor = variantColorMap[variant] || 'amber';
 ---
 
 <section class:list={['terminal-section relative', v.border, v.bg, corners && 'has-corners', noHover && 'no-hover', densityClass, className]}>
   {title && (
     <div class:list={['terminal-section-header flex items-center', `border-b ${v.line}`]}>
-      <span class:list={['text-xs', v.bracket]}>[</span>
-      <span class:list={['text-xs font-bold tracking-wider uppercase', v.title]}>{title}</span>
-      <span class:list={['text-xs', v.bracket]}>]</span>
-      <span class:list={['flex-1 border-t ml-2', v.line]}></span>
+      <BracketHeader title={title} variant={bracketColor} size="xs" line={true} />
     </div>
   )}
   
@@ -90,7 +63,7 @@ const densityClass = density !== 'default' ? `density-${density}` : '';
   </div>
   
   {footer && (
-    <div class:list={['terminal-section-footer text-xs text-amber-500/40', `border-t ${v.line}`]}>
+    <div class:list={['terminal-section-footer text-xs', `border-t ${v.line}`, v.footer]}>
       {footerText || '[ END ]'}
     </div>
   )}

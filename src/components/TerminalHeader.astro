@@ -1,26 +1,19 @@
 ---
-const navItems = [
-  { name: 'HOME', href: '/' },
-  { name: 'PROJECTS', href: '/projects' },
-  { name: 'BLOG', href: '/blog' },
-  { name: 'CONTACT', href: '/contact' },
-];
+import MobileNavModal from './MobileNavModal.astro';
+import Logo from './Logo.astro';
+import { NAV_ITEMS } from '../config/navigation.js';
 
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="mb-2">
   <div class="w-full px-4 md:px-8 lg:px-16 py-2 border-b border-amber-500/50">
-    <div class="flex items-center justify-between flex-wrap gap-3 md:gap-6">
-      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-        <div class="pixel-art text-3xl md:text-4xl leading-none text-amber-500" aria-hidden="true">█</div>
-        <span id="logo-glitch" class="text-2xl md:text-3xl font-bold text-amber-500 tracking-wider" data-text="SOLIDSNAKEDEV">
-          SOLIDSNAKEDEV
-        </span>
-      </a>
+    <div class="flex items-center justify-between gap-3 md:gap-6">
+      <Logo size="large" enableGlitch={true} />
       
-      <nav aria-label="Main navigation" class="flex gap-2 md:gap-4 text-sm md:text-base flex-wrap">
-        {navItems.map((item) => (
+      <!-- Desktop Navigation -->
+      <nav aria-label="Main navigation" class="hidden md:flex gap-2 md:gap-4 text-xl md:text-2xl">
+        {NAV_ITEMS.map((item) => (
           <a 
             href={item.href}
             class={`hover:text-white transition-colors ${
@@ -32,32 +25,19 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
       </nav>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        id="mobile-menu-btn"
+        class="md:hidden text-amber-500 text-2xl hover:text-white transition-colors p-2 -mr-2"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
     </div>
   </div>
 </header>
 
-<script>
-  // Random glitch effect - triggers at unpredictable intervals
-  function randomGlitch() {
-    const el = document.getElementById('logo-glitch');
-    if (!el) return;
-    
-    // Random delay between 2-8 seconds
-    const delay = 2000 + Math.random() * 6000;
-    
-    setTimeout(() => {
-      el.classList.add('glitch');
-      
-      // Glitch duration: 200-600ms
-      const duration = 200 + Math.random() * 400;
-      
-      setTimeout(() => {
-        el.classList.remove('glitch');
-        randomGlitch(); // Schedule next glitch
-      }, duration);
-    }, delay);
-  }
-  
-  // Start the random glitch cycle
-  randomGlitch();
-</script>
+<!-- Mobile Navigation Modal Component -->
+<MobileNavModal navItems={NAV_ITEMS} currentPath={currentPath} />

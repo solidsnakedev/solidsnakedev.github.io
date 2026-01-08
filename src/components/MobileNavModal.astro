@@ -1,0 +1,54 @@
+---
+import Modal from './Modal.astro';
+
+interface Props {
+  navItems: Array<{ name: string; href: string }>;
+  currentPath: string;
+}
+
+const { navItems, currentPath } = Astro.props;
+---
+
+<Modal id="mobile-nav-modal" size="fullscreen" className="md:hidden">
+  <div class="w-full h-full flex flex-col justify-center items-center p-8 relative">
+    <!-- Close Button -->
+    <button 
+      id="mobile-nav-close"
+      class="absolute top-6 right-6 text-amber-500 text-5xl hover:text-white transition-colors leading-none w-12 h-12 flex items-center justify-center"
+      aria-label="Close navigation menu"
+    >
+      ✕
+    </button>
+
+    <!-- Navigation Links -->
+    <nav aria-label="Mobile navigation" class="flex flex-col gap-10 text-center w-full max-w-md">
+      {navItems.map((item) => (
+        <a 
+          href={item.href}
+          class={`text-4xl hover:text-white transition-all duration-200 hover:scale-105 py-4 ${
+            currentPath === item.href ? 'text-white font-bold' : 'text-amber-500'
+          }`}
+          aria-current={currentPath === item.href ? 'page' : undefined}
+        >
+          [{item.name}]
+        </a>
+      ))}
+    </nav>
+  </div>
+</Modal>
+
+<script>
+  import { ModalController } from '../utils/modalController.js';
+
+  // Initialize mobile navigation modal
+  new ModalController({
+    modalId: 'mobile-nav-modal',
+    triggerIds: ['mobile-menu-btn'],
+    closeIds: ['mobile-nav-close'],
+    transitionDuration: 200,
+    closeOnNavigation: true,
+    closeOnEscape: true,
+    closeOnResize: true,
+    resizeBreakpoint: 768
+  });
+</script>

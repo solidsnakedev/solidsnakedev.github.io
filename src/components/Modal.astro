@@ -1,0 +1,39 @@
+---
+/**
+ * Generic modal wrapper component
+ * Provides structure and styling for any modal content
+ */
+
+interface Props {
+  id: string;
+  size?: 'small' | 'medium' | 'large' | 'fullscreen';
+  className?: string;
+  enableCRT?: boolean;
+}
+
+const { 
+  id, 
+  size = 'medium',
+  className = '',
+  enableCRT = true
+} = Astro.props;
+
+const sizeClasses = {
+  small: 'max-w-md',
+  medium: 'max-w-2xl',
+  large: 'max-w-4xl',
+  fullscreen: 'w-screen h-screen'
+};
+
+const sizeClass = sizeClasses[size];
+const crtClass = enableCRT ? 'crt' : '';
+---
+
+<div 
+  id={id}
+  class={`fixed top-0 left-0 ${sizeClass} bg-terminal-bg z-[9999] opacity-0 invisible transition-opacity duration-200 ease-out overflow-hidden ${crtClass} ${className}`}
+  aria-hidden="true"
+  style="display: none;"
+>
+  <slot />
+</div>

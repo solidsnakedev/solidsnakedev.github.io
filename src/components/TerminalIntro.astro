@@ -1,0 +1,178 @@
+---
+// Terminal power-on intro animation - reusing existing components
+---
+
+<div id="terminal-intro" class="terminal-intro crt">
+  <div class="intro-content">
+    <span id="intro-logo" class="text-2xl md:text-3xl font-bold text-amber-500 tracking-wider" data-text="">
+    </span>
+    <span id="intro-cursor" class="intro-cursor inline-block -mb-1">_</span>
+  </div>
+  <div class="skip-hint">PRESS ANY KEY TO SKIP</div>
+</div>
+
+<style>
+  .terminal-intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--terminal-bg);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: flicker-on 0.3s ease-out forwards;
+  }
+
+  .intro-content {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-family: 'VT323', monospace;
+    position: relative;
+    z-index: 10003;
+  }
+
+  .intro-cursor {
+    animation: blink-cursor 0.8s step-end infinite;
+    color: var(--terminal-amber);
+  }
+
+  .skip-hint {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.875rem;
+    color: var(--terminal-amber);
+    opacity: 0.5;
+    letter-spacing: 0.15em;
+    z-index: 10003;
+  }
+
+  /* Flicker on animation */
+  @keyframes flicker-on {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    20% {
+      opacity: 0.3;
+    }
+    30% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0.5;
+    }
+    50%, 100% {
+      opacity: 1;
+    }
+  }
+
+  /* Blinking cursor */
+  @keyframes blink-cursor {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  /* Fade out animation */
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .terminal-intro.hidden {
+    animation: fade-out 0.5s ease-out forwards;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .terminal-intro {
+      animation: none;
+      opacity: 1;
+    }
+    .intro-cursor {
+      animation: none;
+      opacity: 1;
+    }
+    .terminal-intro.hidden {
+      animation: none;
+      display: none;
+    }
+  }
+
+  /* Hide on small screens if needed */
+  @media (max-width: 640px) {
+    .intro-content {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+
+<script>
+  import { IntroController } from '../utils/introController.js';
+  import { typeWriter, instantText } from '../utils/typewriter.js';
+  import { getRandomGlitchPattern, applyGlitchPattern } from '../utils/glitchPatterns.js';
+  import { SITE_CONFIG, ANIMATION_TIMINGS } from '../config/navigation.js';
+  
+  const introLogo = document.getElementById('intro-logo');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Initialize intro controller
+  const controller = new IntroController({
+    introId: 'terminal-intro',
+    fadeOutDuration: ANIMATION_TIMINGS.intro.fadeOutDuration,
+    showOnRefresh: true
+  });
+  
+  async function runIntro() {
+    if (!introLogo) return;
+    
+    const timings = ANIMATION_TIMINGS.intro;
+    
+    // Wait for flicker animation to complete
+    await new Promise(resolve => setTimeout(resolve, timings.flickerDuration));
+    
+    // Type out the text or show instantly
+    if (!prefersReducedMotion) {
+      await typeWriter(SITE_CONFIG.name, introLogo, {
+        delay: timings.typewriterDelay
+      });
+    } else {
+      instantText(SITE_CONFIG.name, introLogo);
+    }
+    
+    // Pause before glitch effect
+    await new Promise(resolve => setTimeout(resolve, timings.glitchPauseBefore));
+    
+    // Apply random CRT glitch pattern
+    const glitchData = getRandomGlitchPattern();
+    applyGlitchPattern(introLogo, glitchData);
+    
+    introLogo.classList.add('glitch');
+    await new Promise(resolve => setTimeout(resolve, timings.glitchDuration));
+    introLogo.classList.remove('glitch');
+    
+    // Pause after glitch
+    await new Promise(resolve => setTimeout(resolve, timings.glitchPauseAfter));
+    
+    // Complete intro
+    controller.complete();
+  }
+  
+  // Start intro if it should be shown
+  if (controller.init()) {
+    runIntro();
+  }
+</script>

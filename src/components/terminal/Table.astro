@@ -1,10 +1,13 @@
 ---
+import BracketHeader from './BracketHeader.astro';
+import { getVariant, getDensityClass } from '../../utils/terminalVariants.js';
+
 /**
  * Table - Terminal data table with CSS borders and bracket headers
  * 
  * @prop {string} title - Table title
  * @prop {Array} headers - Column headers with {label, span} objects
- * @prop {string} [variant] - Style variant: 'default' | 'compact' | 'highlight'
+ * @prop {string} [variant] - Style variant: 'default' | 'compact' | 'highlight' | 'success' | 'warning' | 'error'
  * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
  * @prop {string} [class] - Additional classes
  */
@@ -16,7 +19,7 @@ interface Header {
 interface Props {
   title: string;
   headers: Header[];
-  variant?: 'default' | 'compact' | 'highlight';
+  variant?: 'default' | 'compact' | 'highlight' | 'success' | 'warning' | 'error';
   density?: 'compact' | 'default' | 'comfortable';
   class?: string;
 }
@@ -29,28 +32,32 @@ const {
   class: className = '' 
 } = Astro.props;
 
-const variants = {
-  default: 'border-amber-500/50',
-  compact: 'border-amber-500/30',
-  highlight: 'border-amber-400/70 shadow-[0_0_10px_rgba(251,191,36,0.2)]'
-};
+const v = getVariant(variant);
+const densityClass = getDensityClass(density);
 
-const densityClass = density !== 'default' ? `density-${density}` : '';
+// Map variant to BracketHeader color
+const variantColorMap = {
+  default: 'amber',
+  compact: 'amber',
+  subtle: 'amber',
+  highlight: 'amber',
+  success: 'green',
+  warning: 'yellow',
+  error: 'red'
+};
+const bracketColor = variantColorMap[variant] || 'amber';
 ---
 
-<div class:list={['terminal-table relative', variants[variant], densityClass, className]}>
+<div class:list={['terminal-table relative', v.border, v.bg, densityClass, className]}>
   <!-- Header with bracket title -->
-  <div class="terminal-table-header bg-amber-500/10 flex items-center">
-    <span class="text-amber-500 text-xs">[</span>
-    <span class="text-amber-400 text-xs font-bold tracking-wider uppercase">{title}</span>
-    <span class="text-amber-500 text-xs">]</span>
-    <span class="flex-1 border-t border-amber-500/30 ml-2"></span>
+  <div class:list={['terminal-table-header flex items-center', v.header]}>
+    <BracketHeader title={title} variant={bracketColor} size="xs" line={true} />
   </div>
   
   <!-- Column headers -->
-  <div class="terminal-table-colheaders text-xs text-amber-500/70 grid grid-cols-12 border-b border-amber-500/30 bg-black/50">
+  <div class:list={['terminal-table-colheaders text-xs grid grid-cols-12 border-b', v.line, 'bg-black/50']}>
     {headers.map((h) => (
-      <span class={`col-span-${h.span}`}>{h.label}</span>
+      <span class={`col-span-${h.span} ${v.title}`}>{h.label}</span>
     ))}
   </div>
   
@@ -58,8 +65,8 @@ const densityClass = density !== 'default' ? `density-${density}` : '';
   <slot />
   
   <!-- Footer line -->
-  <div class="terminal-table-footer border-t border-amber-500/30 bg-amber-500/5">
-    <span class="text-amber-500/40 text-xs">[ END ]</span>
+  <div class:list={['terminal-table-footer border-t', v.line, v.header]}>
+    <span class:list={['text-xs', v.footer]}>[ END ]</span>
   </div>
 </div>
 
@@ -69,8 +76,7 @@ const densityClass = density !== 'default' ? `density-${density}` : '';
     background: rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
   }
-  
-  /* Hover highlight effect */
+   Hover highlight effect */
   .terminal-table:hover {
     background: rgba(245, 158, 11, 0.08);
     border-color: rgba(245, 158, 11, 0.7);

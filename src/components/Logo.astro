@@ -1,0 +1,58 @@
+---
+import { SITE_CONFIG } from '../config/navigation.js';
+
+interface Props {
+  size?: 'small' | 'medium' | 'large';
+  enableGlitch?: boolean;
+  className?: string;
+}
+
+const { 
+  size = 'medium', 
+  enableGlitch = false,
+  className = '' 
+} = Astro.props;
+
+const sizeClasses = {
+  small: {
+    icon: 'text-2xl md:text-3xl',
+    text: 'text-xl md:text-2xl'
+  },
+  medium: {
+    icon: 'text-3xl md:text-4xl',
+    text: 'text-2xl md:text-3xl'
+  },
+  large: {
+    icon: 'text-4xl md:text-5xl',
+    text: 'text-3xl md:text-4xl'
+  }
+};
+
+const sizes = sizeClasses[size];
+const logoId = enableGlitch ? 'logo-glitch' : undefined;
+---
+
+<a href="/" class={`flex items-center gap-2 ${className}`}>
+  <div 
+    class={`pixel-art ${sizes.icon} leading-none text-amber-500`} 
+    aria-hidden="true"
+  >
+    {SITE_CONFIG.logoIcon}
+  </div>
+  <span 
+    id={logoId}
+    class={`${sizes.text} font-bold text-amber-500 tracking-wider`}
+    data-text={SITE_CONFIG.name}
+  >
+    {SITE_CONFIG.name}
+  </span>
+</a>
+
+{enableGlitch && (
+  <script>
+    import { GlitchAnimator } from '../utils/glitchAnimation.js';
+    
+    const animator = new GlitchAnimator('logo-glitch');
+    animator.start();
+  </script>
+)}

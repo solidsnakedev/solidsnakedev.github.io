@@ -19,7 +19,9 @@
   --terminal-bg-light: #1a1a1a;
   --text-glow: 0 0 6px rgba(255, 199, 71, 0.4), 0 0 12px rgba(255, 199, 71, 0.2);
   --text-glow-strong: 0 0 5px rgba(255, 199, 71, 0.6), 0 0 10px rgba(255, 199, 71, 0.3);
-  --phosphor-bloom: 0 0 1px rgba(255, 199, 71, 0.6), 0 0 4px rgba(255, 199, 71, 0.3);
+  /* Reduced phosphor bloom for cleaner text - adjust blur radius (first two numbers) */
+  /* 0px = no blur, 1px = subtle, 2px = visible, 4px = heavy */
+  --phosphor-bloom: 0 0 0.5px rgba(255, 199, 71, 0.5), 0 0 1px rgba(255, 199, 71, 0.2);
   --text-white: #f0f0f0;
   --focus-ring: 0 0 0 3px rgba(255, 199, 71, 0.5);
   
@@ -107,6 +109,11 @@ body {
   font-size: 22px;
   line-height: 1.8;
   overflow-x: hidden;
+  /* Cleaner text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Reduced phosphor glow for cleaner text */
   text-shadow: var(--phosphor-bloom);
   word-wrap: break-word;
 }
@@ -120,6 +127,33 @@ body {
 a:focus-visible {
   outline: 2px solid var(--terminal-amber);
   outline-offset: 2px;
+}
+
+/* Hover state - override CRT effects with bright amber highlight */
+a:hover,
+button:hover {
+  /* Remove CRT blur on hover for clarity */
+  text-shadow: 0 0 10px rgba(255, 199, 71, 0.9) !important;
+  /* Keep background transparent */
+  background: transparent !important;
+  /* No box shadow */
+  box-shadow: none !important;
+  /* Smooth transition */
+  transition: all 0.15s ease;
+  /* Bright amber color */
+  color: #ffc747 !important;
+  /* Increase brightness */
+  filter: brightness(1.4);
+  /* Ensure cursor changes */
+  cursor: pointer;
+}
+
+/* Apply to child elements too */
+a:hover *,
+button:hover * {
+  text-shadow: 0 0 10px rgba(255, 199, 71, 0.9) !important;
+  color: #ffc747 !important;
+  filter: brightness(1.4);
 }
 
 /* Respect user motion preferences */
@@ -207,7 +241,7 @@ a:focus-visible {
   pointer-events: none;
 }
 
-/* Vignette (dark edges) */
+/* Vignette (dark edges, bright center) */
 /* Intensity: 0.15 = subtle, 0.25 = medium, 0.4 = heavy */
 .crt::after {
   content: "";
@@ -219,10 +253,11 @@ a:focus-visible {
   right: 0;
   background: radial-gradient(
     ellipse at center,
-    transparent 0%,
-    transparent 40%,
-    rgba(0, 0, 0, 0.2) 70%,
-    rgba(0, 0, 0, 0.5) 100%
+    rgba(255, 199, 71, 0.03) 0%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.3) 65%,
+    rgba(0, 0, 0, 0.65) 90%,
+    rgba(0, 0, 0, 0.85) 100%
   );
   z-index: 9998;
   pointer-events: none;
@@ -357,7 +392,14 @@ a:focus-visible {
 /* Uses !important to bypass reduced-motion for this decorative effect */
 .glitch {
   position: relative;
-  animation: glitch-skew 0.3s infinite linear alternate-reverse !important;
+  --glitch-left-speed: 0.2s;
+  --glitch-right-speed: 0.25s;
+  --glitch-skew-speed: 0.3s;
+  --glitch-clip-before: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  --glitch-clip-after: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  --glitch-color-1: #ff00ff;
+  --glitch-color-2: #00ffff;
+  animation: glitch-skew var(--glitch-skew-speed) infinite linear alternate-reverse !important;
 }
 
 .glitch::before,
@@ -373,19 +415,19 @@ a:focus-visible {
 }
 
 .glitch::before {
-  /* Magenta channel - shifts left */
-  color: #ff00ff;
-  animation: glitch-left 0.2s infinite linear alternate-reverse !important;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  /* First color channel - shifts left */
+  color: var(--glitch-color-1);
+  animation: glitch-left var(--glitch-left-speed) infinite linear alternate-reverse !important;
+  clip-path: var(--glitch-clip-before);
+  -webkit-clip-path: var(--glitch-clip-before);
 }
 
 .glitch::after {
-  /* Cyan channel - shifts right */
-  color: #00ffff;
-  animation: glitch-right 0.25s infinite linear alternate-reverse !important;
-  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-  -webkit-clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  /* Second color channel - shifts right */
+  color: var(--glitch-color-2);
+  animation: glitch-right var(--glitch-right-speed) infinite linear alternate-reverse !important;
+  clip-path: var(--glitch-clip-after);
+  -webkit-clip-path: var(--glitch-clip-after);
 }
 
 @keyframes glitch-left {
@@ -602,6 +644,25 @@ a:focus-visible {
   margin-right: 8px;
   opacity: 0.7;
   font-size: 10px;
+}
+
+/* Blog Links - Bold Terminal Style with Amber Glow */
+.blog-content a {
+  color: var(--terminal-amber);
+  text-decoration: none;
+  border-bottom: 2px solid rgba(255, 199, 71, 0.4);
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(255, 199, 71, 0.3);
+  transition: all 0.15s;
+}
+
+.blog-content a:hover {
+  color: white;
+  border-bottom-color: white;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 199, 71, 0.08);
+  padding: 2px 4px;
+  margin: -2px -4px;
 }
 
 /* Pixel Art Filter */

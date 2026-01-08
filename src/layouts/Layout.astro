@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import TerminalIntro from '../components/TerminalIntro.astro';
 
 interface Props {
   title: string;
@@ -23,6 +24,9 @@ const { title, description = 'Solid Snake Dev | Terminal Portfolio' } = Astro.pr
     <title>{title}</title>
   </head>
   <body class="crt min-h-screen flex flex-col">
+    <!-- Terminal intro animation (first visit only) -->
+    <TerminalIntro />
+    
     <slot />
     
     <!-- VHS tracking line effect -->

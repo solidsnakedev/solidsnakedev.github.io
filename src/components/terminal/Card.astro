@@ -1,4 +1,7 @@
 ---
+import BracketHeader from './BracketHeader.astro';
+import { getVariant, getDensityClass } from '../../utils/terminalVariants.js';
+
 /**
  * Card - Terminal detail card with CSS borders and bracket headers
  * 
@@ -7,7 +10,7 @@
  * @prop {string} [statusColor] - Status color class (default: text-green-400)
  * @prop {string} [footer] - Footer text (default: shows END marker)
  * @prop {string} [footerRight] - Right-side footer text
- * @prop {string} [variant] - Style variant: 'default' | 'compact' | 'highlight' | 'success' | 'warning'
+ * @prop {string} [variant] - Style variant: 'default' | 'compact' | 'highlight' | 'success' | 'warning' | 'error'
  * @prop {string} [density] - Spacing density: 'compact' | 'default' | 'comfortable'
  * @prop {boolean} [corners] - Show corner accents (default: true)
  */
@@ -17,7 +20,7 @@ interface Props {
   statusColor?: string;
   footer?: string;
   footerRight?: string;
-  variant?: 'default' | 'compact' | 'highlight' | 'success' | 'warning';
+  variant?: 'default' | 'compact' | 'highlight' | 'success' | 'warning' | 'error';
   density?: 'compact' | 'default' | 'comfortable';
   corners?: boolean;
 }
@@ -33,54 +36,28 @@ const {
   corners = true
 } = Astro.props;
 
-const variants = {
-  default: {
-    border: 'border-amber-500/50',
-    header: 'bg-amber-500/10',
-    bracket: 'text-amber-500',
-    title: 'text-amber-400'
-  },
-  compact: {
-    border: 'border-amber-500/30',
-    header: 'bg-black/50',
-    bracket: 'text-amber-500/70',
-    title: 'text-amber-400/90'
-  },
-  highlight: {
-    border: 'border-amber-400/70',
-    header: 'bg-amber-500/20',
-    bracket: 'text-amber-400',
-    title: 'text-white'
-  },
-  success: {
-    border: 'border-green-500/50',
-    header: 'bg-green-500/10',
-    bracket: 'text-green-500',
-    title: 'text-green-400'
-  },
-  warning: {
-    border: 'border-yellow-500/50',
-    header: 'bg-yellow-500/10',
-    bracket: 'text-yellow-500',
-    title: 'text-yellow-400'
-  }
-};
+const v = getVariant(variant);
+const densityClass = getDensityClass(density);
 
-const v = variants[variant];
-const densityClass = density !== 'default' ? `density-${density}` : '';
+// Map variant to BracketHeader color
+const variantColorMap = {
+  default: 'amber',
+  compact: 'amber',
+  subtle: 'amber',
+  highlight: 'amber',
+  success: 'green',
+  warning: 'yellow',
+  error: 'red'
+};
+const bracketColor = variantColorMap[variant] || 'amber';
 ---
 
-<div class:list={['terminal-card relative flex flex-col', v.border, corners && 'has-corners', densityClass]}>
+<div class:list={['terminal-card relative flex flex-col', v.border, v.bg, corners && 'has-corners', densityClass]}>
   <!-- Card Header -->
   <div class:list={['terminal-card-header border-b border-inherit flex items-center justify-between', v.header]}>
-    <div class="terminal-card-title-row flex items-center">
-      <span class:list={['text-xs', v.bracket]}>[</span>
-      <span class:list={['text-sm font-bold tracking-wide', v.title]}>{title}</span>
-      <span class:list={['text-xs', v.bracket]}>]</span>
-      <span class="flex-1 border-t border-current opacity-30 ml-2 max-w-16"></span>
-    </div>
+    <BracketHeader title={title} variant={bracketColor} size="sm" line={true} class="flex-1" />
     {status && (
-      <div class="terminal-card-status flex items-center text-xs">
+      <div class="terminal-card-status flex items-center gap-1 text-xs ml-2">
         <span class={statusColor}>●</span>
         <span class={statusColor}>{status}</span>
       </div>
@@ -88,14 +65,14 @@ const densityClass = density !== 'default' ? `density-${density}` : '';
   </div>
   
   <!-- Card Body -->
-  <div class="terminal-card-body flex-1 bg-black/30">
+  <div class="terminal-card-body flex-1">
     <slot />
   </div>
   
   <!-- Card Footer -->
-  <div class="terminal-card-footer border-t border-inherit text-xs text-amber-500/40 flex justify-between bg-black/20">
+  <div class:list={['terminal-card-footer border-t border-inherit text-xs flex justify-between', v.footer]}>
     <span>{footer || '[ END ]'}</span>
-    {footerRight && <span class="text-amber-500/60">{footerRight}</span>}
+    {footerRight && <span>{footerRight}</span>}
   </div>
 </div>
 
