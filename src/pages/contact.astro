@@ -75,18 +75,20 @@ const statusItems = [
 
 <TerminalLayout title="CONTACT | SOLIDSNAKEDEV" section="COMM_INTERFACE">
 
-  <!-- Network Connections Table -->
-  <Table title="ACTIVE CONNECTIONS" headers={tableHeaders}>
-    {channels.map((channel) => (
-      <TableRow clickable>
-        <span class="col-span-2 text-cyan-400">{channel.protocol}</span>
-        <span class="col-span-2 text-white/60">{channel.port}</span>
-        <span class="col-span-3 text-white">{channel.name}</span>
-        <span class="col-span-3 text-amber-500 truncate">{channel.handle}</span>
-        <span class="col-span-2 text-green-400">{channel.status}</span>
-      </TableRow>
-    ))}
-  </Table>
+  <!-- Network Connections Table (hidden on mobile) -->
+  <div class="hidden md:block">
+    <Table title="ACTIVE CONNECTIONS" headers={tableHeaders}>
+      {channels.map((channel) => (
+        <TableRow clickable>
+          <span class="col-span-2 text-cyan-400">{channel.protocol}</span>
+          <span class="col-span-2 text-white/60">{channel.port}</span>
+          <span class="col-span-3 text-white">{channel.name}</span>
+          <span class="col-span-3 text-amber-500 truncate">{channel.handle}</span>
+          <span class="col-span-2 text-green-400">{channel.status}</span>
+        </TableRow>
+      ))}
+    </Table>
+  </div>
 
   <!-- Channel Cards Grid -->
   <CardGrid cols={2}>
@@ -140,13 +142,15 @@ const statusItems = [
 
   <!-- Interests Section -->
   <Section title="/etc/profile.d/interests.conf" variant="default" footer footerText="[ END OF CONFIG ]">
-    <div class="p-3 text-xs space-y-1">
+    <div class="p-3 text-xs space-y-2">
       {interests.map((interest, i) => (
-        <div class="flex items-start gap-2">
-          <span class="text-amber-500/50">{String(i + 1).padStart(2, '0')}:</span>
-          <span class="text-green-400">export</span>
-          <span class="text-white">INTEREST_{i}=</span>
-          <span class="text-cyan-400">"{interest}"</span>
+        <div class="flex flex-col md:flex-row md:items-start md:gap-2">
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-amber-500/50">{String(i + 1).padStart(2, '0')}:</span>
+            <span class="text-green-400">export</span>
+            <span class="text-white">INTEREST_{i}=</span>
+          </div>
+          <span class="text-cyan-400 pl-6 md:pl-0">"{interest}"</span>
         </div>
       ))}
     </div>

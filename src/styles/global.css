@@ -586,9 +586,12 @@ button:hover * {
   border-collapse: collapse;
   font-family: var(--font-mono);
   width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
   margin: 1rem 0;
   border: 2px solid var(--terminal-amber) !important;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .blog-content table thead {
@@ -603,20 +606,19 @@ button:hover * {
   vertical-align: top;
   padding: 8px 12px !important;
   border: 1px solid rgba(255, 199, 71, 0.5) !important;
-  font-size: 15px !important;
 }
 
 .blog-content table th {
   white-space: nowrap;
   color: var(--terminal-amber);
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.05em;
 }
 
 .blog-content table td {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .blog-content table tr {
