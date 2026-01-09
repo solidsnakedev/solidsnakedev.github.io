@@ -241,8 +241,10 @@ button:hover * {
   pointer-events: none;
 }
 
-/* Vignette (dark edges, bright center) */
+/* Vignette (dark edges, bright center) - DISABLED */
 /* Intensity: 0.15 = subtle, 0.25 = medium, 0.4 = heavy */
+/* To re-enable: uncomment the .crt::after block below */
+/*
 .crt::after {
   content: "";
   display: block;
@@ -262,6 +264,7 @@ button:hover * {
   z-index: 9998;
   pointer-events: none;
 }
+*/
 
 /* VHS tracking line */
 /* Speed: 4s = fast, 8s = medium, 12s = slow */
