@@ -589,9 +589,11 @@ button:hover * {
   table-layout: auto;
   margin: 1rem 0;
   border: 2px solid var(--terminal-amber) !important;
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+}
+
+/* Wrapper for horizontal scroll on mobile */
+.blog-content :where(table) {
+  display: table;
 }
 
 .blog-content table thead {
